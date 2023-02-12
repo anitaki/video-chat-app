@@ -15,7 +15,7 @@ import { Visibility, VisibilityOff, PhotoCamera } from "@mui/icons-material";
 import SignUpButton from "../components/RegisterButton";
 import profileImg from '../assets/sample.webp';
 
-function SignUp() {
+function LogIn() {
   // set the props for the NavBar
   let pages = ["Chat", "Login"];
   let settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -29,42 +29,28 @@ function SignUp() {
     event.preventDefault();
   };
 
-  // Functionality and states of  the profile image the user uploads
-  const [image, setImage] = useState("");
-  const [upLoadingImage, setUpLoadingImage] = useState(false);
-  const [imagePreview, setImagePreview] = useState(null);
-
-  // Check if image to be uploaded is less than 1mb
-  function validateImg (e) {
-    const file = e.target.files[0];
-    if (file.size >= 1048576) {
-      alert("The max file size is 1mb");
-    } else {
-      setImage(file);
-      setImagePreview(URL.createObjectURL(file))
-    }
-  }
-
-  // Functionality for user sign up
+ 
+  // Functionality for user login
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  function signup() {
-    axios
-      .post("http://localhost:5000/auth/register", {
-        username,
-        email,
-        password,
-      })
-      .then(({ data }) => {
-        if (data.message === true) {
-          navigate("/");
-        } else {
-          alert(data.message);
-        }
-      });
+  function login() {
+    alert("login")
+    // axios
+    //   .post("http://localhost:5000/auth/register", {
+    //     username,
+    //     email,
+    //     password,
+    //   })
+    //   .then(({ data }) => {
+    //     if (data.message === true) {
+    //       navigate("/");
+    //     } else {
+    //       alert(data.message);
+    //     }
+    //   });
   }
 
   return (
@@ -84,43 +70,7 @@ function SignUp() {
             justifyContent: "center",
           }}
         >
-          {/* Heading and upload profile picture section */}
-          <Typography variant="h5" component="h1" mt={2}>
-            Create Account
-          </Typography>
-          <Box
-            sx={{
-              position: "relative",
-              width: "8rem",
-              height: "8rem",
-              borderRadius: "50%",
-              // "&:hover": {
-              //   backgroundColor: "primary.main",
-              //   opacity: [0.9, 0.8, 0.7],
-              // },
-            }}
-          >
-            <img
-              src={imagePreview || profileImg}
-              alt="upload a profile pic for your account"
-              style={{ borderRadius: "50%", width: "8rem",
-              height: "8rem", objectFit: "cover", }}
-            />
-            <IconButton
-              color="primary"
-              aria-label="upload picture"
-              component="label"
-              style={{ position: "absolute", bottom: "0", right: "0" }}
-            >
-              <input
-                hidden
-                accept="image/*"
-                type="file"
-                onChange={validateImg}
-              />
-              <PhotoCamera />
-            </IconButton>
-          </Box>
+          
 
           {/* Username field */}
           <TextField
@@ -128,14 +78,14 @@ function SignUp() {
             required
             variant="filled"
             id="filled-required"
-            label="Username"
+            label="Username or Email"
             defaultValue=""
             onChange={(e) => {
               setUsername(e.target.value);
             }}
           />
 
-          {/* Email field */}
+          Email field
           <TextField
             sx={{ m: 1, width: "38ch" }}
             required
@@ -176,14 +126,14 @@ function SignUp() {
 
           {/* Submit Button  */}
           <SignUpButton
-            value="Sign Up"
+            value="Log in"
             onClick={() => {
-              signup();
+              login();
             }}
           />
           <Typography variant="body1" mt={2}>
-           Already have an account? 
-           <Button variant="text" color="secondary" onClick={()=> {navigate("/login")}}>Login</Button>
+           Don't have an account? 
+           <Button variant="text" color="secondary" onClick={() => {navigate("/register")}}>Register</Button>
           </Typography>
         </Grid>
         
@@ -206,4 +156,4 @@ function SignUp() {
   );
 }
 
-export default SignUp;
+export default LogIn;
