@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  margin-block-start: 1rem;
+}
+
+.registration-wrapper{
+  width: 50%;
+  height: 85vh;
+}
+
+.image-wrapper {
+  width: 50%;
+  height: 85vh;
+  background-image: url("https://images.unsplash.com/photo-1616587896649-79b16d8b173d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80");
+}
