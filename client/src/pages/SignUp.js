@@ -1,6 +1,7 @@
-// import axios from 'axios';
+import axios from 'axios';
 import NavBar from "../components/NavBar";
-import { useState, useNavigate} from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Grid, Box, Typography, Button } from "@mui/material";
 import {
   TextField,
@@ -14,6 +15,7 @@ import { Visibility, VisibilityOff, PhotoCamera } from "@mui/icons-material";
 import SignUpButton from "../components/RegisterButton";
 
 function SignUp() {
+  
   // set the props for the NavBar
   let pages = ["Chat", "Login"];
   let settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -27,23 +29,23 @@ function SignUp() {
     event.preventDefault();
   };
 
-//   //variables for sign up functionality
-//   const [email, setEmail] = useState("");
-//   const [username, setUsername] = useState("");
-//   const [password, setPassword] = useState("");
-//   const navigate = useNavigate();
+  // Functionality for user sign up
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-//   function  signUp() {
-//   axios
-//   .post("http://localhost:5000/auth/register", {username, email, password})
-//   .then(({data}) => {
-//     if (data.message === true) {
-//       navigate("/auth/login");
-//     } else {
-//       alert(data.message);
-//     }
-//   })
-// }
+  function  signup() {
+  axios
+  .post("http://localhost:5000/auth/register", {username, email, password})
+  .then(({data}) => {
+    if (data.message === true) {
+      navigate("/");
+    } else {
+      alert(data.message);
+    }
+  })
+}
 
   return (
     <div>
@@ -92,7 +94,7 @@ function SignUp() {
             </IconButton>
           </Box>
 
-          {/* Username and email fields */}
+          {/* Username field */}
           <TextField
             sx={{ m: 1, width: "38ch" }}
             required
@@ -100,7 +102,12 @@ function SignUp() {
             id="filled-required"
             label="Username"
             defaultValue=""
+            onChange = {(e) => {
+              setUsername(e.target.value)
+            }}
           />
+
+          {/* Email field */}
           <TextField
             sx={{ m: 1, width: "38ch" }}
             required
@@ -108,7 +115,11 @@ function SignUp() {
             id="filled-required"
             label="Email"
             defaultValue=""
+            onChange = {(e) => {
+              setEmail(e.target.value)
+            }}
           />
+
           {/* Password field */}
           <FormControl sx={{ m: 1, width: "38ch" }} variant="filled" required>
             <InputLabel htmlFor="filled-adornment-password">
@@ -117,6 +128,9 @@ function SignUp() {
             <FilledInput
               id="filled-adornment-password"
               type={showPassword ? "text" : "password"}
+              onChange = {(e) => {
+                setPassword(e.target.value)
+              }}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -131,13 +145,15 @@ function SignUp() {
               }
             />
           </FormControl>
-          {/* Form Submit Button  */}
+
+          {/* Submit Button  */}
          <SignUpButton
          value="Sign Up"
-         onClick= {()=> {alert("clicked")}} 
+         onClick= {()=> {signup()}} 
          />
         </Grid>
-        {/* SignUp Page Background Image */}
+
+        {/* Background Image Section */}
         <Grid
           item
           xs={12}
