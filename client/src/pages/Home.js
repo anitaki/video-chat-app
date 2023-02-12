@@ -2,8 +2,7 @@ import NavBar from "../components/NavBar";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import SendIcon from "@mui/icons-material/Send";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
+import {Grid, Box} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 function Landing() {
@@ -22,13 +21,11 @@ function Landing() {
           flexGrow: 1,
           justifyContent: "center",
           alignItems: "center",
-          color: "blue",
         }}
       >
         {/* Home Page Heading, Text and Button */}
         <Grid container spacing={2}>
-          <Grid
-            item
+          <Grid item
             xs={12}
             sm={6}
             style={{
@@ -38,7 +35,7 @@ function Landing() {
               justifyContent: "center",
             }}
           >
-            <Typography variant="h2" mb={2}>
+            <Typography variant="h2" component="h1" mb={2}>
               Heading
             </Typography>
             <Typography variant="subtitle1" mb={2}>

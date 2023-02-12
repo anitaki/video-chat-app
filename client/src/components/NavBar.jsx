@@ -33,7 +33,7 @@ function NavBar({ pages, settings }) {
   };
 
   return (
-    <AppBar position="static" enableColorOnDark>
+    <AppBar position="static" color="secondary" enableColorOnDark>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
