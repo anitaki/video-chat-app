@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 import NavBar from "../components/NavBar";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -13,9 +13,9 @@ import {
 } from "@mui/material";
 import { Visibility, VisibilityOff, PhotoCamera } from "@mui/icons-material";
 import SignUpButton from "../components/RegisterButton";
+import profileImg from '../assets/sample.webp';
 
 function SignUp() {
-  
   // set the props for the NavBar
   let pages = ["Chat", "Login"];
   let settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -29,23 +29,43 @@ function SignUp() {
     event.preventDefault();
   };
 
+  // Functionality and states of  the profile image the user uploads
+  const [image, setImage] = useState("");
+  const [upLoadingImage, setUpLoadingImage] = useState(false);
+  const [imagePreview, setImagePreview] = useState(null);
+
+  // Check if image to be uploaded is less than 1mb
+  function validateImg (e) {
+    const file = e.target.files[0];
+    if (file.size >= 1048576) {
+      alert("The max file size is 1mb");
+    } else {
+      setImage(file);
+      setImagePreview(URL.createObjectURL(file))
+    }
+  }
+
   // Functionality for user sign up
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  function  signup() {
-  axios
-  .post("http://localhost:5000/auth/register", {username, email, password})
-  .then(({data}) => {
-    if (data.message === true) {
-      navigate("/");
-    } else {
-      alert(data.message);
-    }
-  })
-}
+  function signup() {
+    axios
+      .post("http://localhost:5000/auth/register", {
+        username,
+        email,
+        password,
+      })
+      .then(({ data }) => {
+        if (data.message === true) {
+          navigate("/");
+        } else {
+          alert(data.message);
+        }
+      });
+  }
 
   return (
     <div>
@@ -80,8 +100,11 @@ function SignUp() {
               // },
             }}
           >
-            <img src="https://pub-static.fotor.com/assets/projects/pages/d5bdd0513a0740a8a38752dbc32586d0/fotor-03d1a91a0cec4542927f53c87e0599f6.jpg" alt="upload a profile pic for your account"
-            style={{ borderRadius: "50%" }}
+            <img
+              src={imagePreview || profileImg}
+              alt="upload a profile pic for your account"
+              style={{ borderRadius: "50%", width: "8rem",
+              height: "8rem", objectFit: "cover", }}
             />
             <IconButton
               color="primary"
@@ -89,7 +112,12 @@ function SignUp() {
               component="label"
               style={{ position: "absolute", bottom: "0", right: "0" }}
             >
-              <input hidden accept="image/*" type="file" />
+              <input
+                hidden
+                accept="image/*"
+                type="file"
+                onChange={validateImg}
+              />
               <PhotoCamera />
             </IconButton>
           </Box>
@@ -102,8 +130,8 @@ function SignUp() {
             id="filled-required"
             label="Username"
             defaultValue=""
-            onChange = {(e) => {
-              setUsername(e.target.value)
+            onChange={(e) => {
+              setUsername(e.target.value);
             }}
           />
 
@@ -115,8 +143,8 @@ function SignUp() {
             id="filled-required"
             label="Email"
             defaultValue=""
-            onChange = {(e) => {
-              setEmail(e.target.value)
+            onChange={(e) => {
+              setEmail(e.target.value);
             }}
           />
 
@@ -128,8 +156,8 @@ function SignUp() {
             <FilledInput
               id="filled-adornment-password"
               type={showPassword ? "text" : "password"}
-              onChange = {(e) => {
-                setPassword(e.target.value)
+              onChange={(e) => {
+                setPassword(e.target.value);
               }}
               endAdornment={
                 <InputAdornment position="end">
@@ -147,10 +175,12 @@ function SignUp() {
           </FormControl>
 
           {/* Submit Button  */}
-         <SignUpButton
-         value="Sign Up"
-         onClick= {()=> {signup()}} 
-         />
+          <SignUpButton
+            value="Sign Up"
+            onClick={() => {
+              signup();
+            }}
+          />
         </Grid>
 
         {/* Background Image Section */}
