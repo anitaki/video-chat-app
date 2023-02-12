@@ -13,7 +13,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 
-function ResponsiveAppBar({ pages, settings }) {
+function NavBar({ pages, settings }) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -156,4 +156,4 @@ function ResponsiveAppBar({ pages, settings }) {
     </AppBar>
   );
 }
-export default ResponsiveAppBar;
+export default NavBar;
