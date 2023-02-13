@@ -23,7 +23,7 @@ function App() {
     socket.on("receive_message", (data) => {
       setMessageReceived(data.message);
     });
-  }, [socket]);
+  },[]);
 
   // send a message throught the socket to the back end with the room number the user entered
   const joinRoom = () => {
@@ -34,7 +34,9 @@ function App() {
 
   // send a message through the socket, once the user clicks the send button
   const sendMessage = () => {
-    socket.emit("send_message", { message, room });
+    socket.emit("send_message", { message, 
+      // room 
+    });
   };
 
   return (
@@ -45,7 +47,11 @@ function App() {
           <Sidebar />
         </Grid>
         <Grid item xs={12} sm={8}>
-          <MessageBoard />
+          <MessageBoard 
+          onClick={()=> sendMessage()}
+          children={<Typography>{messageReceived}</Typography>}
+          onChange={(event) => {setMessage(event.target.value)}}
+          />
         </Grid>
       </Grid>
     </div>
