@@ -2,7 +2,7 @@ import axios from "axios";
 import NavBar from "../components/NavBar";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Grid, Box, Typography, Button } from "@mui/material";
+import { Grid, Typography, Button } from "@mui/material";
 import {
   TextField,
   FormControl,
@@ -11,9 +11,8 @@ import {
   InputAdornment,
   IconButton,
 } from "@mui/material";
-import { Visibility, VisibilityOff, PhotoCamera } from "@mui/icons-material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import SignUpButton from "../components/RegisterButton";
-import profileImg from '../assets/sample.webp';
 
 function LogIn() {
   // set the props for the NavBar
@@ -29,28 +28,26 @@ function LogIn() {
     event.preventDefault();
   };
 
- 
   // Functionality for user login
   const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
+  // const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   function login() {
-    alert("login")
-    // axios
-    //   .post("http://localhost:5000/auth/register", {
-    //     username,
-    //     email,
-    //     password,
-    //   })
-    //   .then(({ data }) => {
-    //     if (data.message === true) {
-    //       navigate("/");
-    //     } else {
-    //       alert(data.message);
-    //     }
-    //   });
+    axios
+      .post("http://localhost:5000/auth/login", {
+        username,
+        password,
+      })
+      .then(({ data }) => {
+        if (data.token) {
+          localStorage.setItem("token", data.token);
+          navigate("/chat");
+        } else {
+          alert(data.message);
+        }
+      });
   }
 
   return (
@@ -70,31 +67,16 @@ function LogIn() {
             justifyContent: "center",
           }}
         >
-          
-
           {/* Username field */}
           <TextField
             sx={{ m: 1, width: "38ch" }}
             required
             variant="filled"
             id="filled-required"
-            label="Username or Email"
+            label="Username"
             defaultValue=""
             onChange={(e) => {
               setUsername(e.target.value);
-            }}
-          />
-
-          Email field
-          <TextField
-            sx={{ m: 1, width: "38ch" }}
-            required
-            variant="filled"
-            id="filled-required"
-            label="Email"
-            defaultValue=""
-            onChange={(e) => {
-              setEmail(e.target.value);
             }}
           />
 
@@ -132,11 +114,18 @@ function LogIn() {
             }}
           />
           <Typography variant="body1" mt={2}>
-           Don't have an account? 
-           <Button variant="text" color="secondary" onClick={() => {navigate("/register")}}>Register</Button>
+            Don't have an account?
+            <Button
+              variant="text"
+              color="secondary"
+              onClick={() => {
+                navigate("/register");
+              }}
+            >
+              Register
+            </Button>
           </Typography>
         </Grid>
-        
 
         {/* Background Image Section */}
         <Grid

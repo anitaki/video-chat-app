@@ -1,4 +1,5 @@
 const mongoose = require("./connection");
+import isEmail from 'validator/lib/isEmail';
 
 const UserSchema = new mongoose.Schema({
   username: {
@@ -10,14 +11,22 @@ const UserSchema = new mongoose.Schema({
     required: [true, "Please enter an email"],
     unique: true,
     lowercase: true,
+    validator: [isEmail, "Please enter a valid email"],
   },
   password: {
     type: String,
     required: [true, "Please enter a valid password"],
   },
+  picture: {
+    type: String
+  },
   registerDate: {
     type: Date, 
     default: Date.now()
+  },
+  newMessages: {
+    type: Object,
+    default: {},
   }
 });
 
