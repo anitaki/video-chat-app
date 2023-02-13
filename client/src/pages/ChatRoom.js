@@ -1,12 +1,19 @@
 import { io } from "socket.io-client";
 import { useState, useEffect } from "react";
-import Message from "../components/Message";
-import Rooms from "../components/Rooms";
+import NavBar from "../components/NavBar";
+import Sidebar from "../components/Sidebar";
+import MessageBoard from "../components/MessageForm";
+import { Grid, Container, Box } from "@mui/material";
+import Typography from "@mui/material/Typography";
 
 // create a socket and connect react with socket.io
 const socket = io.connect("http://localhost:5000");
 
 function App() {
+  // Set the props values for the NavBar
+  let pages = ["Chat", "Login"];
+  let settings = ["Profile", "Account", "Dashboard", "Logout"];
+
   const [message, setMessage] = useState("");
   const [messageReceived, setMessageReceived] = useState("");
   const [room, setRoom] = useState("");
@@ -32,25 +39,15 @@ function App() {
 
   return (
     <div>
-      <div style={{ width: "50%", margin: "3rem auto" }}>
-        <Rooms
-          onChange={(event) => {
-            setRoom(event.target.value);
-          }}
-          onClick={() => {
-            joinRoom();
-          }}
-        />
-        <Message
-          onChange={(event) => {
-            setMessage(event.target.value);
-          }}
-          onClick={() => {
-            sendMessage();
-          }}
-          children={<p>{messageReceived}</p>}
-        />
-      </div>
+      <NavBar pages={pages} settings={settings} />
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={4}>
+          <Sidebar />
+        </Grid>
+        <Grid item xs={12} sm={8}>
+          <MessageBoard />
+        </Grid>
+      </Grid>
     </div>
   );
 }

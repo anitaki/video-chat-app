@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import { Visibility, VisibilityOff, PhotoCamera } from "@mui/icons-material";
 import SignUpButton from "../components/RegisterButton";
-import profileImg from '../assets/sample.webp';
+import profileImg from "../assets/sample.webp";
 
 function SignUp() {
   // set the props for the NavBar
@@ -35,13 +35,13 @@ function SignUp() {
   const [imagePreview, setImagePreview] = useState(null);
 
   // Check if image to be uploaded is less than 1mb
-  function validateImg (e) {
+  function validateImg(e) {
     const file = e.target.files[0];
     if (file.size >= 1048576) {
       alert("The max file size is 1mb");
     } else {
       setImage(file);
-      setImagePreview(URL.createObjectURL(file))
+      setImagePreview(URL.createObjectURL(file));
     }
   }
 
@@ -103,8 +103,12 @@ function SignUp() {
             <img
               src={imagePreview || profileImg}
               alt="upload a profile pic for your account"
-              style={{ borderRadius: "50%", width: "8rem",
-              height: "8rem", objectFit: "cover", }}
+              style={{
+                borderRadius: "50%",
+                width: "8rem",
+                height: "8rem",
+                objectFit: "cover",
+              }}
             />
             <IconButton
               color="primary"
@@ -182,11 +186,18 @@ function SignUp() {
             }}
           />
           <Typography variant="body1" mt={2}>
-           Already have an account? 
-           <Button variant="text" color="secondary" onClick={()=> {navigate("/login")}}>Login</Button>
+            Already have an account?
+            <Button
+              variant="text"
+              color="secondary"
+              onClick={() => {
+                navigate("/login");
+              }}
+            >
+              Login
+            </Button>
           </Typography>
         </Grid>
-        
 
         {/* Background Image Section */}
         <Grid
