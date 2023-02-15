@@ -1,15 +1,17 @@
-import { io } from "socket.io-client";
+import { io, Socket } from "socket.io-client";
 import { useState, useEffect } from "react";
 import NavBar from "../components/NavBar";
 import Sidebar from "../components/Sidebar";
 import MessageBoard from "../components/MessageForm";
 import { Grid, Container, Box } from "@mui/material";
 import Typography from "@mui/material/Typography";
-
-// create a socket and connect react with socket.io
-const socket = io.connect("http://localhost:5000");
+import { socketID, socket } from "../Socket";
 
 function App() {
+  socket.on("connect", () => {
+    setMessageReceived(`You connected with id ${socketID}`);
+  });
+
   // Set the props values for the NavBar
   let pages = ["Chat", "Login"];
   let settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -20,10 +22,14 @@ function App() {
 
   // listen to any changes coming from the socket
   useEffect(() => {
-    socket.on("receive_message", (data) => {
-      setMessageReceived(data.message);
-    });
-  },[]);
+    socket.on(
+      "receive_message",
+      (data) => {
+        setMessageReceived(data.message);
+      },
+      [socket]
+    );
+  });
 
   // send a message throught the socket to the back end with the room number the user entered
   const joinRoom = () => {
@@ -34,8 +40,9 @@ function App() {
 
   // send a message through the socket, once the user clicks the send button
   const sendMessage = () => {
-    socket.emit("send_message", { message, 
-      // room 
+    socket.emit("send_message", {
+      message,
+      // room
     });
   };
 
@@ -47,11 +54,18 @@ function App() {
           <Sidebar />
         </Grid>
         <Grid item xs={12} sm={8}>
-          <MessageBoard 
-          onClick={()=> sendMessage()}
-          children={<Typography>{messageReceived}</Typography>}
-          onChange={(event) => {setMessage(event.target.value)}}
+          <MessageBoard
+            onClick={() => sendMessage()}
+            children={<Typography>{messageReceived}</Typography>}
+            onChange={(event) => {
+              setMessage(event.target.value);
+            }}
           />
+          {/* <div>{messageReceived}</div>
+          <input onChange={(event) => {
+              setMessage(event.target.value);
+            }}></input>
+            <button onClick={() => sendMessage()}>Send</button> */}
         </Grid>
       </Grid>
     </div>
