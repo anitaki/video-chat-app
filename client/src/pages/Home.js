@@ -8,7 +8,10 @@ import { useNavigate } from "react-router-dom";
 function Landing() {
   const navigate = useNavigate();
   // Set the props values for the NavBar
-  let pages = ["Chat", "Login"];
+  let pages = [
+    { text: 'Chat', href: '/chat' },
+    { text: 'Login', href: '/login' }
+  ];
   let settings = ["Profile", "Account", "Dashboard", "Logout"];
 
   return (

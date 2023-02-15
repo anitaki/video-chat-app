@@ -13,7 +13,11 @@ function App() {
   });
 
   // Set the props values for the NavBar
-  let pages = ["Chat", "Login"];
+   let pages = [
+    { text: 'Chat', href: '/chat' },
+    { text: 'Login', href: '/login' }
+  ];
+
   let settings = ["Profile", "Account", "Dashboard", "Logout"];
 
   const [message, setMessage] = useState("");
@@ -31,6 +35,7 @@ function App() {
     );
   });
 
+
   // send a message throught the socket to the back end with the room number the user entered
   const joinRoom = () => {
     if (room !== "") {
@@ -45,6 +50,11 @@ function App() {
       // room
     });
   };
+
+  const selectRoom = (e) => {
+// setRoom(e.target.value);
+alert("hi")
+  }
 
   return (
     <div>

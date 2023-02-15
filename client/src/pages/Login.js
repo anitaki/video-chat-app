@@ -16,7 +16,10 @@ import SignUpButton from "../components/RegisterButton";
 
 function LogIn() {
   // set the props for the NavBar
-  let pages = ["Chat", "Login"];
+  let pages = [
+    { text: 'Chat', href: '/chat' },
+    { text: 'Login', href: '/login' }
+  ];
   let settings = ["Profile", "Account", "Dashboard", "Logout"];
 
   //  Handle show/hide password in the password form field
