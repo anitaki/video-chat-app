@@ -8,10 +8,10 @@ import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
+import { Link } from "react-router-dom";
 
 function NavBar({ pages, settings }) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -86,7 +86,7 @@ function NavBar({ pages, settings }) {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                  <Link style={{}}to={page.href}><Typography textAlign="center">{page.text}</Typography></Link>
                 </MenuItem>
               ))}
             </Menu>
@@ -112,14 +112,11 @@ function NavBar({ pages, settings }) {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {page}
-              </Button>
-            ))}
+              <MenuItem key={page} onClick={handleCloseNavMenu}>
+              <Link style={{color: "inherit", textDecoration: "none"}}to={page.href}><Typography textAlign="center">{page.text}</Typography></Link>
+            </MenuItem>
+              )
+            )}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>

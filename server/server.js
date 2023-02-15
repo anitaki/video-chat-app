@@ -32,8 +32,7 @@ const io = new Server(server, {
 //listen when a user connects to our socket server by listening to connection event
 io.on("connection", (socket) => {
   console.log(socket.id);
-  
- 
+   
   // listen for a sent message and then emit it to everyone in our room
   socket.on("send_message", (data) => {
     // socket.to(data.room).emit("receive_message", data);
