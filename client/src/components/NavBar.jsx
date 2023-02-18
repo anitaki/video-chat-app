@@ -86,7 +86,9 @@ function NavBar({ pages, settings }) {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Link style={{}}to={page.href}><Typography textAlign="center">{page.text}</Typography></Link>
+                  <Link style={{}} to={page.href}>
+                    <Typography textAlign="center">{page.text}</Typography>
+                  </Link>
                 </MenuItem>
               ))}
             </Menu>
@@ -113,10 +115,14 @@ function NavBar({ pages, settings }) {
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <MenuItem key={page} onClick={handleCloseNavMenu}>
-              <Link style={{color: "inherit", textDecoration: "none"}}to={page.href}><Typography textAlign="center">{page.text}</Typography></Link>
-            </MenuItem>
-              )
-            )}
+                <Link
+                  style={{ color: "inherit", textDecoration: "none" }}
+                  to={page.href}
+                >
+                  <Typography textAlign="center">{page.text}</Typography>
+                </Link>
+              </MenuItem>
+            ))}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>

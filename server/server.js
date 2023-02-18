@@ -9,14 +9,18 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const port = process.env.PORT || 5000;
 const authRouter = require('./routers/authRouter');
+const chatRouter = require('./routers/chatRouter');
+
 
 // create an Http server, needed for socket.io to connect
 const server = http.createServer(app);
 
 app.use(express.json());
 app.use(cors());
-app.use("/auth", authRouter)
+app.use("/auth", authRouter);
+app.use("/chat", chatRouter);
 
+    
 app.get("/", (req, res) => {
   res.send("Server is running...");
 });
@@ -41,7 +45,7 @@ io.on("connection", (socket) => {
     socket.broadcast.emit("receive_message", data);
   });
 });
-
+ 
 // server listening
 server.listen(port, () => {
   console.log(`Server is running at ${port}`);
