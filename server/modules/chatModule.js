@@ -10,7 +10,9 @@ const ChatSchema = new Schema({
   receiver: {
     type: Schema.Types.ObjectId,
     ref: "User",
-    required: true,
+  },
+  room: {
+    type: String
   },
   message: {
     type: String,
@@ -22,4 +24,6 @@ const ChatSchema = new Schema({
   },
 });
 
-module.exports = Chat = mongoose.model("Chat", ChatSchema);
+const Chat = mongoose.model("Chat", ChatSchema);
+
+module.exports = Chat;
