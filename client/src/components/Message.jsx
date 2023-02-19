@@ -1,12 +1,13 @@
 import React from "react";
+import Moment from "react-moment";
 import { Typography, Box } from "@mui/material";
 
-function Message({ chat, messageReceived }) {
-  
+function Message({ chat, messageReceived, connectedUser }) {
+
+
   return (
       <Typography>
               {chat.map((message) => {         
-
             return (
               <Box sx={{
                 display:"flex",
@@ -19,9 +20,9 @@ function Message({ chat, messageReceived }) {
                 backgroundColor: 'lightblue',
                 borderRadius: "10px",
               }}>
-              <p>{message?.sender?.username}</p>
+              <p>{message?.sender?._id === connectedUser.id ? "You" : message?.sender?.username }</p>
               <p>{message.message}</p>      
-              <p>{message.createdAt}</p>   
+              <p>{<Moment format="DD/MM/YYYY HH:mm">{message.createdAt}</Moment>}</p>
              </Box >
                 )
               })}

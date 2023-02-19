@@ -1,6 +1,6 @@
 import * as React from "react";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import Sidebar from "../components/Sidebar";
@@ -44,6 +44,7 @@ function App() {
     username: "",
     // picture: "",
   });
+  const chatEndRef = useRef(null);
 
   // -------- HOOKS  -------
 
@@ -77,6 +78,7 @@ function App() {
       "receive_message",
       (data) => {
         setMessageReceived(data.message);
+        scrollToBottom();
       },
       [socket]
     );
@@ -107,6 +109,11 @@ function App() {
       );
   };
 
+  // To be used to scroll to bottom of the page when new messages arrive
+  function scrollToBottom() {
+    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }
+
   // -------- RETURN STATEMENT  -------
 
   return (
@@ -123,6 +130,7 @@ function App() {
              < Message 
              chat={chat}
              messageReceived = {messageReceived}
+             connectedUser = {connectedUser}
              />
               }
             onChange={(event) => {
