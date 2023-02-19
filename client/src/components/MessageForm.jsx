@@ -7,7 +7,7 @@ function MessageForm({children, onChange, onClick}) {
   return (
     <div>
       {/* Area to display chat messages */}
-      <Box  sx={{ m: 1, width: "90%", height: "70vh", border: "1px solid lightgrey", borderRadius: "5px"}}>
+      <Box  sx={{ m: 1, width: "90%", height: "70vh", border: "1px solid lightgrey", borderRadius: "5px", overflowY: "scroll"}}>
       {children}
       </Box>
 

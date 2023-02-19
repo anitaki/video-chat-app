@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import Sidebar from "../components/Sidebar";
 import MessageBoard from "../components/MessageForm";
+import Message from "../components/Message"
 import { Grid } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { socketID, socket } from "../Socket";
@@ -119,19 +120,11 @@ function App() {
           <MessageBoard
             onClick={() => sendMessage()}
             children={
-            <Typography>
-              {chat.map((message) => {
-              
-                return (
-                  <>
-                <p>{message.message}</p>
-                
-             
-                </>
-                )
-              })}
-              {messageReceived}
-              </Typography>}
+             < Message 
+             chat={chat}
+             messageReceived = {messageReceived}
+             />
+              }
             onChange={(event) => {
               setMessage(event.target.value);
             }}
