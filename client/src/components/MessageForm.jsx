@@ -16,6 +16,7 @@ function MessageForm({ children, onChange, onClick, connectedUser}) {
           border: "1px solid lightgrey",
           borderRadius: "5px",
           overflowY: "scroll",
+          overflowX: "none"
         }}
       >
         {children}
@@ -39,7 +40,7 @@ function MessageForm({ children, onChange, onClick, connectedUser}) {
         <Button
           variant="contained"
           color="warning"
-          disabled={!connectedUser}
+          
           sx={{ m: 1, width: "8%" }}
           onClick={onClick}
         >
