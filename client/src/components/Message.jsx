@@ -1,8 +1,17 @@
 import React from "react";
+import axios from "axios";
 import Moment from "react-moment";
-import { Typography, Container, Box } from "@mui/material";
+import { Typography, Container, Box, IconButton } from "@mui/material";
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 
-function Message({ chat, messageReceived, connectedUser }) {
+function Message({ chat, connectedUser, onClick}) {
+
+   // Function to delete one of your chat messages from the db
+   const deleteMessage = (id) => {
+    axios.delete("http://localhost:5000/chat/" + id)
+    window.location.reload(true);
+  };
+
   return (
     <Typography>
       <Container sx={{ display: "flex", flexDirection: "column" }}>
@@ -13,7 +22,8 @@ function Message({ chat, messageReceived, connectedUser }) {
                 key={chatmessage._id}
                 sx={{
                   display: "flex",
-                  flexDirection: "column",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
                   flexWrap: "wrap",
                   width: "23vw",
                   my: 1,
@@ -22,6 +32,7 @@ function Message({ chat, messageReceived, connectedUser }) {
                   borderRadius: "10px",
                 }}
               >
+                 <Box>
                 <p>You:</p>
                 <p>{chatmessage.message}</p>
                 <p>
@@ -31,6 +42,10 @@ function Message({ chat, messageReceived, connectedUser }) {
                     </Moment>
                   }
                 </p>
+                </Box>
+                <IconButton onClick={()=>{deleteMessage(chatmessage._id)}} aria-label="Delete message">
+                <DeleteOutlineOutlinedIcon style={{alignSelf: "center"}} />
+                </IconButton>
               </Box>
             );
           } else {
