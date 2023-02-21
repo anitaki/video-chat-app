@@ -42,7 +42,7 @@ io.on("connection", (socket) => {
     // socket.to(data.room).emit("receive_message", data);
 
     // listen for a sent message and then emit it to everyone in our socket server except ourselvess
-    socket.broadcast.emit("receive_message", data);
+    io.sockets.emit("receive_message", data);
   });
 });
  

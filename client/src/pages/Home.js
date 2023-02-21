@@ -43,7 +43,7 @@ function Landing() {
               Heading
             </Typography>
             <Typography variant="subtitle1" mb={2}>
-              Some text about the app{" "}
+            Stay connected with your loved ones anytime, anywhere.{" "}
             </Typography>
             <Button
               onClick={() => {
@@ -51,9 +51,9 @@ function Landing() {
               }}
               variant="contained"
               color="success"
-              size="medium"
+              size="large"
               endIcon={<SendIcon />}
-              style={{ width: "10rem" }}
+              style={{ width: "12rem", height: "3rem" }}
             >
               Get Started
             </Button>
