@@ -77,7 +77,7 @@ function App() {
       [socket]
     );
     getChat();
-  }, [socket]);
+  }, [messageReceived]);
 
   // -------- FUNCTIONS  -------
 
@@ -102,7 +102,6 @@ function App() {
           // room
         })
       )
-      .then(getChat());
   };
 
   // Function to get the chat from the db
