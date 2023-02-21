@@ -24,7 +24,8 @@ function App() {
     { text: "Chat", href: "/chat" },
     { text: "Logout", href: "/logout" },
   ];
-  let settings = ["Profile", "Account", "Dashboard", "Logout"];
+  let settings = [
+    "Profile", "Account", "Dashboard", "Logout"];
 
   // -- Room Variables --
   const [room, setRoom] = useState("");

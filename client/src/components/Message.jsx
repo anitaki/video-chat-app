@@ -6,11 +6,11 @@ function Message({ chat, messageReceived, connectedUser }) {
   return (
     <Typography>
       <Container sx={{ display: "flex", flexDirection: "column" }}>
-        {chat.map((message) => {
-          if (message?.sender?._id === connectedUser.id) {
+        {chat.map((chatmessage) => {
+          if (chatmessage?.sender?._id === connectedUser.id) {
             return (
               <Box
-                key={message._id}
+                key={chatmessage._id}
                 sx={{
                   display: "flex",
                   flexDirection: "column",
@@ -23,11 +23,11 @@ function Message({ chat, messageReceived, connectedUser }) {
                 }}
               >
                 <p>You:</p>
-                <p>{message.message}</p>
+                <p>{chatmessage.message}</p>
                 <p>
                   {
                     <Moment format="DD/MM/YYYY HH:mm">
-                      {message.createdAt}
+                      {chatmessage.createdAt}
                     </Moment>
                   }
                 </p>
@@ -36,7 +36,7 @@ function Message({ chat, messageReceived, connectedUser }) {
           } else {
             return (
               <Box
-              key={message._id}
+              key={chatmessage._id}
                 sx={{
                   display: "flex",
                   flexDirection: "column",
@@ -49,12 +49,12 @@ function Message({ chat, messageReceived, connectedUser }) {
                   borderRadius: "10px",
                 }}
               >
-                <p>{message?.sender?.username}:</p>
-                <p>{message.message}</p>
+                <p>{chatmessage?.sender?.username}:</p>
+                <p>{chatmessage.message}</p>
                 <p>
                   {
                     <Moment format="DD/MM/YYYY HH:mm">
-                      {message.createdAt}
+                      {chatmessage.createdAt}
                     </Moment>
                   }
                 </p>
