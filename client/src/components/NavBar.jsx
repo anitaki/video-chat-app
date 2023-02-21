@@ -53,7 +53,7 @@ function NavBar({ pages, settings }) {
               textDecoration: "none",
             }}
           >
-          Ch@tBox
+          ChatVine
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
