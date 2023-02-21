@@ -6,11 +6,11 @@ function Message({ chat, messageReceived, connectedUser }) {
   return (
     <Typography>
       <Container sx={{ display: "flex", flexDirection: "column" }}>
-        {chat.map((message, idx) => {
+        {chat.map((message) => {
           if (message?.sender?._id === connectedUser.id) {
             return (
               <Box
-              // key={}
+                key={message._id}
                 sx={{
                   display: "flex",
                   flexDirection: "column",
@@ -36,6 +36,7 @@ function Message({ chat, messageReceived, connectedUser }) {
           } else {
             return (
               <Box
+              key={message._id}
                 sx={{
                   display: "flex",
                   flexDirection: "column",
