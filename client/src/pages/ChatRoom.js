@@ -9,6 +9,7 @@ import Message from "../components/Message";
 import { Grid } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { socketID, socket } from "../Socket";
+import { ChatBubbleOutlineTwoTone } from "@mui/icons-material";
 
 function App() {
   socket.on("connect", () => {
@@ -44,7 +45,6 @@ function App() {
     username: "",
     // picture: "",
   });
-  const chatEndRef = useRef(null);
 
   // -------- HOOKS  -------
 
@@ -73,12 +73,11 @@ function App() {
     socket.on(
       "receive_message",
       (data) => {
-        setMessageReceived(data.message);   
+        setMessageReceived(data.message);
       },
       [socket]
     );
     getChat();
-    scrollToBottom();
   });
 
   // -------- FUNCTIONS  -------
@@ -113,11 +112,6 @@ function App() {
       setChat(data);
     });
   };
-
-  // To be used to scroll to bottom of the page when new messages arrive
-  function scrollToBottom() {
-    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }
 
   // -------- RETURN STATEMENT  -------
 
