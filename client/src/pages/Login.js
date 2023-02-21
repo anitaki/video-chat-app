@@ -75,7 +75,7 @@ function LogIn() {
             sx={{ m: 1, width: "38ch" }}
             required
             variant="filled"
-            id="filled-required"
+            id="username-login"
             label="Username"
             defaultValue=""
             onChange={(e) => {
@@ -85,7 +85,7 @@ function LogIn() {
 
           {/* Password field */}
           <FormControl sx={{ m: 1, width: "38ch" }} variant="filled" required>
-            <InputLabel htmlFor="filled-adornment-password">
+            <InputLabel htmlFor="password-login">
               Password
             </InputLabel>
             <FilledInput
