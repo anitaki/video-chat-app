@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import Sidebar from "../components/Sidebar";
 import MessageBoard from "../components/MessageForm";
-import Message from "../components/Message"
+import Message from "../components/Message";
 import { Grid } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { socketID, socket } from "../Socket";
@@ -61,14 +61,10 @@ function App() {
           setConnectedUser({ id: data._id, username: data.username });
         })
         // get the messages for the authenticated user to display the chat
-        .then(
-          axios.get("http://localhost:5000/chat/")
-          .then(({data}) => {
-            setChat(data)
-          }))
-    // if the user is not authenticated redirect to home page
+        .then(getChat());
+      // if the user is not authenticated redirect to home page
     } else {
-     navigate('/');
+      navigate("/");
     }
   }, []);
 
@@ -77,11 +73,12 @@ function App() {
     socket.on(
       "receive_message",
       (data) => {
-        setMessageReceived(data.message);
-        scrollToBottom();
+        setMessageReceived(data.message);   
       },
       [socket]
     );
+    getChat();
+    scrollToBottom();
   });
 
   // -------- FUNCTIONS  -------
@@ -106,7 +103,15 @@ function App() {
           message,
           // room
         })
-      );
+      )
+      .then(getChat());
+  };
+
+  // Function to get the chat from the db
+  const getChat = () => {
+    axios.get("http://localhost:5000/chat/").then(({ data }) => {
+      setChat(data);
+    });
   };
 
   // To be used to scroll to bottom of the page when new messages arrive
@@ -127,21 +132,16 @@ function App() {
           <MessageBoard
             onClick={() => sendMessage()}
             children={
-             < Message 
-             chat={chat}
-             messageReceived = {messageReceived}
-             connectedUser = {connectedUser}
-             />
-              }
+              <Message
+                chat={chat}
+                messageReceived={messageReceived}
+                connectedUser={connectedUser}
+              />
+            }
             onChange={(event) => {
               setMessage(event.target.value);
             }}
           />
-          {/* <div>{messageReceived}</div>
-          <input onChange={(event) => {
-              setMessage(event.target.value);
-            }}></input>
-            <button onClick={() => sendMessage()}>Send</button> */}
           <button
             onClick={() => {
               console.log(connectedUser, message);
