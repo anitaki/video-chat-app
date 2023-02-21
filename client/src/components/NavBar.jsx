@@ -12,6 +12,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { Link } from "react-router-dom";
+import { ChatBubbleOutlineTwoTone } from "@mui/icons-material";
 
 function NavBar({ pages, settings }) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -36,7 +37,7 @@ function NavBar({ pages, settings }) {
     <AppBar position="static" color="secondary" enableColorOnDark>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+          <ChatBubbleOutlineTwoTone sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
@@ -52,7 +53,7 @@ function NavBar({ pages, settings }) {
               textDecoration: "none",
             }}
           >
-            LOGO
+          Ch@tBox
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>

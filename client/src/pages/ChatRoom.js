@@ -7,9 +7,8 @@ import Sidebar from "../components/Sidebar";
 import MessageBoard from "../components/MessageForm";
 import Message from "../components/Message";
 import { Grid } from "@mui/material";
-import Typography from "@mui/material/Typography";
 import { socketID, socket } from "../Socket";
-import { ChatBubbleOutlineTwoTone } from "@mui/icons-material";
+
 
 function App() {
   socket.on("connect", () => {
@@ -23,7 +22,7 @@ function App() {
   // -- NavBar Variables --
   let pages = [
     { text: "Chat", href: "/chat" },
-    { text: "Login", href: "/login" },
+    { text: "Logout", href: "/logout" },
   ];
   let settings = ["Profile", "Account", "Dashboard", "Logout"];
 
@@ -78,7 +77,7 @@ function App() {
       [socket]
     );
     getChat();
-  });
+  }, [socket]);
 
   // -------- FUNCTIONS  -------
 
@@ -135,6 +134,7 @@ function App() {
             onChange={(event) => {
               setMessage(event.target.value);
             }}
+            connectedUser={connectedUser}
           />
           <button
             onClick={() => {
