@@ -43,7 +43,7 @@ function App() {
   const [connectedUser, setConnectedUser] = useState({
     id: "",
     username: "",
-    // picture: "",
+    picture: "",
   });
 
   // -------- HOOKS  -------
@@ -58,7 +58,7 @@ function App() {
         })
         .then(({ data }) => {
           console.log(data);
-          setConnectedUser({ id: data._id, username: data.username });
+          setConnectedUser({ id: data._id, username: data.username, picture : data.picture });
         })
         // get the messages for the authenticated user to display the chat
         .then(getChat());
@@ -116,7 +116,7 @@ function App() {
 
   return (
     <div>
-      <NavBar pages={pages} settings={settings} />
+      <NavBar pages={pages} settings={settings} picture={connectedUser.picture}/>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={4}>
           <Sidebar />
