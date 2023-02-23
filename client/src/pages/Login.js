@@ -1,4 +1,5 @@
 import axios from "axios";
+import { socketID, socket } from "../Socket";
 import NavBar from "../components/NavBar";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -33,7 +34,6 @@ function LogIn() {
 
   // Functionality for user login
   const [username, setUsername] = useState("");
-  // const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
@@ -46,6 +46,8 @@ function LogIn() {
       .then(({ data }) => {
         if (data.token) {
           localStorage.setItem("token", data.token);
+          localStorage.setItem("user", data);
+          socket.emit('newUser', { username, socketID: socket.id });
           navigate("/chat");
         } else {
           alert(data.message);
@@ -85,9 +87,7 @@ function LogIn() {
 
           {/* Password field */}
           <FormControl sx={{ m: 1, width: "38ch" }} variant="filled" required>
-            <InputLabel htmlFor="password-login">
-              Password
-            </InputLabel>
+            <InputLabel htmlFor="password-login">Password</InputLabel>
             <FilledInput
               id="filled-adornment-password"
               type={showPassword ? "text" : "password"}
