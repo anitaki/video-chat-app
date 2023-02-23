@@ -4,7 +4,7 @@ import Rooms from "./Rooms";
 
 // Sidebar will display available rooms and online users
 
-function Sidebar({ room }) {
+function Sidebar({ room, users }) {
   // let rooms = ["first room", "second room", "third room"];
   // const [selectedIndex, setSelectedIndex] = React.useState(1);
   // const handleListItemClick = (event, index) => {
@@ -32,6 +32,9 @@ function Sidebar({ room }) {
         <Typography variant="h5" component="h2" mb={2}>
           Members
         </Typography>
+        {users.map((user) => {
+          return <Typography>{user.username}</Typography>
+        })}
       </Box>
     </Container>
   );

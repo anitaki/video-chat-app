@@ -1,6 +1,6 @@
 import * as React from "react";
 import axios from "axios";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import Sidebar from "../components/Sidebar";
@@ -9,11 +9,8 @@ import Message from "../components/Message";
 import { Grid } from "@mui/material";
 import { socketID, socket } from "../Socket";
 
-
 function App() {
-  socket.on("connect", () => {
-    setMessageReceived(`You connected with id ${socketID}`);
-  });
+  
 
   // -------- VARIABLES -------
 
@@ -24,29 +21,37 @@ function App() {
     { text: "Chat", href: "/chat" },
     { text: "Logout", href: "/logout" },
   ];
-  let settings = [
-    "Profile", "Account", "Dashboard", "Logout"];
+  let settings = ["Profile", "Account", "Dashboard", "Logout"];
 
-  // -- Room Variables --
-  const [room, setRoom] = useState("");
+  // // -- Room Variables --
+  // const [room, setRoom] = useState("");
 
-  const handleListItemClick = (event, idx, chatroom) => {
-    setRoom(room);
-    console.log(room);
-  };
+  // const handleListItemClick = (event, idx, chatroom) => {
+  //   setRoom(room);
+  //   console.log(room);
+  // };
 
   // -- Chat Variables --
   const [chat, setChat] = useState([]);
   const [message, setMessage] = useState("");
   const [messageReceived, setMessageReceived] = useState("");
-  // const [room, setRoom] = useState("");
+  const [users, setUsers] = useState([]);
   const [connectedUser, setConnectedUser] = useState({
     id: "",
     username: "",
     picture: "",
   });
 
+  socket.on("connect", () => {
+    setMessageReceived(`You are connected with id ${socketID}`);
+  });
+
   // -------- HOOKS  -------
+
+  // get the list of online users from socket.io
+  useEffect(() => {
+    socket.on("newUserResponse", (data) => setUsers(data));
+  }, [socket, users]);
 
   // Show chat only to authenticated users
   useEffect(() => {
@@ -58,7 +63,11 @@ function App() {
         })
         .then(({ data }) => {
           console.log(data);
-          setConnectedUser({ id: data._id, username: data.username, picture : data.picture });
+          setConnectedUser({
+            id: data._id,
+            username: data.username,
+            picture: data.picture,
+          });
         })
         // get the messages for the authenticated user to display the chat
         .then(getChat());
@@ -67,6 +76,8 @@ function App() {
       navigate("/");
     }
   }, []);
+
+    
 
   // listen to any changes coming from the socket
   useEffect(() => {
@@ -82,13 +93,13 @@ function App() {
 
   // -------- FUNCTIONS  -------
 
-  // send a message throught the socket to the back end with the room number the user entered
-  const joinRoom = () => {
-    if (room !== "") {
-      // socket.emit("join_room", room);
-      alert(room);
-    }
-  };
+  // // send a message throught the socket to the back end with the room number the user entered
+  // const joinRoom = () => {
+  //   if (room !== "") {
+  //     socket.emit("join_room", room);
+  //     alert(room);
+  //   }
+  // };
 
   // send a message through the socket, once the user clicks the send button
   const sendMessage = () => {
@@ -102,7 +113,7 @@ function App() {
           message,
           // room
         })
-      )
+      );
   };
 
   // Function to get the chat from the db
@@ -112,16 +123,18 @@ function App() {
     });
   };
 
-  
-
   // -------- RETURN STATEMENT  -------
 
   return (
     <div>
-      <NavBar pages={pages} settings={settings} picture={connectedUser.picture}/>
+      <NavBar
+        pages={pages}
+        settings={settings}
+        picture={connectedUser.picture}
+      />
       <Grid container spacing={2}>
         <Grid item xs={12} sm={4}>
-          <Sidebar />
+          <Sidebar users={users} />
         </Grid>
         <Grid item xs={12} sm={8}>
           <MessageBoard
@@ -141,7 +154,8 @@ function App() {
           <button
             onClick={() => {
               console.log(connectedUser, message);
-              console.log(chat);
+              // console.log(chat);
+              console.table(users);
             }}
           >
             User
