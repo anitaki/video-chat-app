@@ -42,7 +42,7 @@ function MessageForm({ children, onChange, onClick, picture }) {
           variant="outlined"
           multiline
           maxRows={4}
-          color="secondary"
+          color="warning"
           sx={{ ml: 2, my: 1, width: "60%" }}
           onChange={onChange}
         />

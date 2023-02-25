@@ -44,7 +44,7 @@ function Message({ chat, connectedUser, onClick, picture }) {
                     ml: 1,
                     my: 1,
                     p: 1,
-                    backgroundColor: "#F5F6F7",
+                    backgroundColor: "#eeeeee",
                     borderRadius: "30px",
                   }}
                 >
