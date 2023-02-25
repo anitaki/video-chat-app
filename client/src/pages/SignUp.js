@@ -15,6 +15,7 @@ import { Visibility, VisibilityOff, PhotoCamera } from "@mui/icons-material";
 import SignUpButton from "../components/RegisterButton";
 import profileImg from "../assets/sample.webp";
 
+
 function SignUp() {
   // set the props for the NavBar
   let pages = [
