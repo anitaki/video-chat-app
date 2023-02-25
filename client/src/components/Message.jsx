@@ -104,36 +104,14 @@ function Message({ chat, connectedUser, onClick, picture }) {
             );
           } else {
             return (
-              // <Paper
-              //   key={chatmessage._id}
-              //   sx={{
-              //     display: "flex",
-              //     flexDirection: "column",
-              //     flexWrap: "wrap",
-              //     alignSelf: "flex-end",
-              //     width: "23vw",
-              //     my: 1,
-              //     p: 1,
-              //     // backgroundColor: "#E4A11B",
-              //     backgroundColor: "#8bc34a",
-              //     borderRadius: "10px",
-              //   }}
-              // >
-              //   <p>{chatmessage?.sender?.username}:</p>
-              //   <p>{chatmessage.message}</p>
-              //   <p>
-              //     {
-              //       <Moment format="DD/MM/YYYY HH:mm">
-              //         {chatmessage.createdAt}
-              //       </Moment>
-              //     }
-              //   </p>
-              // </Paper>
-
-
-<Box sx={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
-
-              <Paper
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "flex-end",
+                }}
+              >
+                <Paper
                   key={chatmessage._id}
                   sx={{
                     display: "flex",
@@ -159,7 +137,9 @@ function Message({ chat, connectedUser, onClick, picture }) {
                       px: 2,
                     }}
                   >
-                    <Typography style={{ fontWeight: "bold" }}>{chatmessage?.sender?.username}</Typography>
+                    <Typography style={{ fontWeight: "bold" }}>
+                      {chatmessage?.sender?.username}
+                    </Typography>
                     <Box
                       sx={{
                         width: "100%",
@@ -203,10 +183,10 @@ function Message({ chat, connectedUser, onClick, picture }) {
                 </Paper>
                 <Avatar
                   alt="Profile picture with menu"
-                  src={ picture || profileImg}
+                  src={chatmessage?.sender?.picture || profileImg}
                   style={{ width: "3.5rem", height: "3.5rem" }}
                 />
-                </Box>
+              </Box>
             );
           }
         })}

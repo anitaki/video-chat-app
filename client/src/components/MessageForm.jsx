@@ -1,11 +1,11 @@
 import { TextField, Box, Button, IconButton } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import DivRef from "./DivRef";
-import * as mdb from 'mdb-ui-kit';
+import * as mdb from "mdb-ui-kit";
 
 // Create the input field and Submit button where user will type and send his/her new message
 
-function MessageForm({ children, onChange, onClick, picture}) {
+function MessageForm({ children, onChange, onClick, picture }) {
   return (
     <div>
       {/* Area to display chat messages */}
@@ -17,22 +17,25 @@ function MessageForm({ children, onChange, onClick, picture}) {
           border: "1px solid lightgrey",
           borderRadius: "5px",
           overflowY: "scroll",
-          overflowX: "none"
+          overflowX: "none",
         }}
       >
         {children}
         <DivRef />
       </Box>
-      
 
       {/* Input field for new message */}
-      <Box sx={{ display: "flex", alignItems: "center", pl:5}}>
-        <img src={picture} alt="avatar" style={{
-                borderRadius: "50%",
-                width: "4rem",
-                height: "4rem",
-                objectFit: "cover",
-              }}/>
+      <Box sx={{ display: "flex", alignItems: "center", pl: 5 }}>
+        <img
+          src={picture}
+          alt="avatar"
+          style={{
+            borderRadius: "50%",
+            width: "2rem",
+            height: "2rem",
+            objectFit: "cover",
+          }}
+        />
         <TextField
           id="outlined-basic"
           placeholder="Type here"
@@ -40,12 +43,12 @@ function MessageForm({ children, onChange, onClick, picture}) {
           multiline
           maxRows={4}
           color="secondary"
-          sx={{ml: 2, my: 1, width: "60%" }}
+          sx={{ ml: 2, my: 1, width: "60%" }}
           onChange={onChange}
         />
 
         {/* Submit button for new message */}
-       
+
         {/* <Button
           variant="contained"
           color="warning"
@@ -56,8 +59,8 @@ function MessageForm({ children, onChange, onClick, picture}) {
          Send
         </Button> */}
         <IconButton aria-label="send message">
-  <SendIcon color="warning"  onClick={onClick}/>
-</IconButton>
+          <SendIcon color="warning" onClick={onClick} />
+        </IconButton>
       </Box>
     </div>
   );
