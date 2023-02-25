@@ -129,7 +129,7 @@ function App() {
         settings={settings}
         picture={connectedUser.picture}
       />
-      <Grid container spacing={2} >
+      <Grid container spacing={2}>
         <Grid item xs={12} sm={4}>
           <Sidebar users={users} />
         </Grid>
@@ -156,7 +156,7 @@ function App() {
           <button
             onClick={() => {
               console.log(connectedUser, message);
-              console.log(users);
+              console.log(chat);
               // console.log(users[0][0].username);
             }}
           >
