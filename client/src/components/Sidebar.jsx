@@ -1,10 +1,9 @@
 // import * as React from 'react';
 import { List, ListItem, Typography, Box, Container } from "@mui/material";
 import Rooms from "./Rooms";
+import "../pages/test.css";
 
 // Sidebar will display available rooms and online users
-
-
 
 function Sidebar({ room, users }) {
   // let rooms = ["first room", "second room", "third room"];
@@ -12,8 +11,6 @@ function Sidebar({ room, users }) {
   // const handleListItemClick = (event, index) => {
   //   setSelectedIndex(index);
   // };
-
-  
 
   return (
     <Container pl={5}>
@@ -37,7 +34,7 @@ function Sidebar({ room, users }) {
           Members
         </Typography>
         {users.map((user) => {
-          return <Typography key={user}>{user[0].username}</Typography>
+          return <Typography key={user}>{user[0].username}</Typography>;
         })}
       </Box>
     </Container>
