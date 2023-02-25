@@ -52,8 +52,8 @@ io.on("connection", (socket) => {
   )
   user.socketID = data.socketID
   users.push(user)
-  console.log(users[0][0].username)
-  socket.emit("newUserResponse", users);
+  console.log(users)
+  io.sockets.emit("newUserResponse", users);
 });  
 
 // listens when a user disconnects 
@@ -62,7 +62,7 @@ socket.on("disconnect", () => {
   // Updates the list of users
   users = users.filter((user) => user.socketID !== socket.id);
   console.log(users);
-  socket.emit("newUserResponse", users);
+  io.sockets.emit("newUserResponse", users);
   socket.disconnect;
 }) 
 });

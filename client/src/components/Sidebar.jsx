@@ -37,7 +37,7 @@ function Sidebar({ room, users }) {
           Members
         </Typography>
         {users.map((user) => {
-          return <Typography>{user[0].username}</Typography>
+          return <Typography key={user}>{user[0].username}</Typography>
         })}
       </Box>
     </Container>
