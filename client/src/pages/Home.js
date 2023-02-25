@@ -39,10 +39,10 @@ function Landing() {
               justifyContent: "center",
             }}
           >
-            <Typography variant="h2" component="h1" mb={2}>
-              Heading
+            <Typography variant="h4" component="h1" p={2} mb={2} align="center">
+            Chat and Connect with Grapevine <br></br>Your New Go-To Chat App!
             </Typography>
-            <Typography variant="subtitle1" mb={2}>
+            <Typography variant="subtitle1" mb={3} px={2}>
             Stay connected with your loved ones anytime, anywhere.{" "}
             </Typography>
             <Button
@@ -50,7 +50,7 @@ function Landing() {
                 navigate("/register");
               }}
               variant="contained"
-              color="success"
+              color="warning"
               size="large"
               endIcon={<SendIcon />}
               style={{ width: "12rem", height: "3rem" }}
