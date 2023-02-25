@@ -10,6 +10,8 @@ const jwt = require("jsonwebtoken");
 const port = process.env.PORT || 5000;
 const authRouter = require("./routers/authRouter");
 const chatRouter = require("./routers/chatRouter");
+const User = require("./modules/userModule");
+
 
 // create an Http server, needed for socket.io to connect
 const server = http.createServer(app);
@@ -21,7 +23,7 @@ app.use("/chat", chatRouter);
 
 app.get("/", (req, res) => {
   res.send("Server is running...");
-});
+}); 
 
 let users = [];
 
@@ -43,12 +45,15 @@ io.on("connection", (socket) => {
   });
 
 // listens when a new user joins the server
- socket.on("newUser", (data) => {
-  //Adds the new user to the list of users
-  users.push(data);
-  console.log(users);
-  //Sends the list of users to the client
-  socket.emit("newUserResponse", users);
+ socket.on("newUser", async (data) => {
+// listens when a new user joins the server
+  let user= await User.find(
+    {username: data.username} 
+  )
+  user.socketID = data.socketID
+  users.push(user)
+  console.log(users)
+  io.sockets.emit("newUserResponse", users);
 });  
 
 // listens when a user disconnects 
@@ -57,7 +62,7 @@ socket.on("disconnect", () => {
   // Updates the list of users
   users = users.filter((user) => user.socketID !== socket.id);
   console.log(users);
-  socket.emit("newUserResponse", users);
+  io.sockets.emit("newUserResponse", users);
   socket.disconnect;
 }) 
 });
