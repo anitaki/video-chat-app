@@ -15,6 +15,7 @@ import { Visibility, VisibilityOff, PhotoCamera } from "@mui/icons-material";
 import SignUpButton from "../components/RegisterButton";
 import profileImg from "../assets/sample.webp";
 
+
 function SignUp() {
   // set the props for the NavBar
   let pages = [
@@ -79,8 +80,8 @@ function SignUp() {
 
   async function signup() {
     if (!image) return alert("Please upload your profile picture");
-        const picture = await uploadImage(image);
-       
+    const picture = await uploadImage(image);
+
     axios
       .post("http://localhost:5000/auth/register", {
         username,
