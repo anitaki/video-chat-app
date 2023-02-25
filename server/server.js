@@ -48,11 +48,11 @@ io.on("connection", (socket) => {
  socket.on("newUser", async (data) => {
 // listens when a new user joins the server
   let user= await User.find(
-    {username: data.username}
+    {username: data.username} 
   )
   user.socketID = data.socketID
   users.push(user)
-  console.log(users)
+  console.log(users[0][0].username)
   socket.emit("newUserResponse", users);
 });  
 

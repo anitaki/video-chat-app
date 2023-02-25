@@ -50,7 +50,7 @@ function App() {
 
   // get the list of online users from socket.io
   useEffect(() => {
-    socket.on("newUserResponse", (data) => setUsers(data));
+    socket.on("newUserResponse", (users) => setUsers(users));
   }, [socket, users]);
 
   // Show chat only to authenticated users
@@ -151,14 +151,18 @@ function App() {
             }}
             connectedUser={connectedUser}
           />
+          {users.map((user) => {
+            
+          return <p>{user.username}</p>
+        })}
           <button
             onClick={() => {
               console.log(connectedUser, message);
-              // console.log(chat);
-              console.table(users);
+              console.log(users);
+              // console.log(users[0][0].username);
             }}
           >
-            User
+            user
           </button>
         </Grid>
       </Grid>
