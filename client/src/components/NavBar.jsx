@@ -12,7 +12,10 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { Link } from "react-router-dom";
-import { ChatBubbleOutlineTwoTone } from "@mui/icons-material";
+import logo from "../assets/vine2.png";
+import { green } from '@mui/material/colors';
+const greenColor = green[700];
+
 
 function NavBar({ pages, settings, picture }) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -37,7 +40,7 @@ function NavBar({ pages, settings, picture }) {
     <AppBar position="static" color="success" enableColorOnDark>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <ChatBubbleOutlineTwoTone sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+          <img src={logo} alt="vine logo" style={{ width: "4.5rem", marginRight: ".5rem"  }} />
           <Typography
             variant="h6"
             noWrap
