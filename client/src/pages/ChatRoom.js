@@ -10,8 +10,6 @@ import { Grid } from "@mui/material";
 import { socketID, socket } from "../Socket";
 
 function App() {
-  
-
   // -------- VARIABLES -------
 
   const navigate = useNavigate();
@@ -49,13 +47,6 @@ function App() {
   // -------- HOOKS  -------
 
   // get the list of online users from socket.io
-  
-    
-
-    
-   
-    
-   
 
   // Show chat only to authenticated users
   useEffect(() => {
@@ -77,13 +68,13 @@ function App() {
         .then(getChat());
       // if the user is not authenticated redirect to home page
     } else {
-      navigate("/");
+      navigate("/login");
     }
   }, []);
 
   useEffect(() => {
-    socket.on("newUserResponse", (users) => setUsers(users))  
-  },[messageReceived]) 
+    socket.on("newUserResponse", (users) => setUsers(users));
+  }, [messageReceived]);
 
   // listen to any changes coming from the socket
   useEffect(() => {
@@ -150,17 +141,18 @@ function App() {
                 chat={chat}
                 messageReceived={messageReceived}
                 connectedUser={connectedUser}
+                picture={connectedUser.picture}
               />
             }
+            picture={connectedUser.picture}
             onChange={(event) => {
               setMessage(event.target.value);
             }}
             connectedUser={connectedUser}
           />
           {users.map((user) => {
-            
-          return <p>{user.username}</p>
-        })}
+            return <p>{user.username}</p>;
+          })}
           <button
             onClick={() => {
               console.log(connectedUser, message);

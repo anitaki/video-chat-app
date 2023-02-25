@@ -34,7 +34,7 @@ function NavBar({ pages, settings, picture }) {
   };
 
   return (
-    <AppBar position="static" color="secondary" enableColorOnDark>
+    <AppBar position="static" color="success" enableColorOnDark>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <ChatBubbleOutlineTwoTone sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />

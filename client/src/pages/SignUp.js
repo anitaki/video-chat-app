@@ -79,8 +79,8 @@ function SignUp() {
 
   async function signup() {
     if (!image) return alert("Please upload your profile picture");
-        const picture = await uploadImage(image);
-       
+    const picture = await uploadImage(image);
+
     axios
       .post("http://localhost:5000/auth/register", {
         username,
