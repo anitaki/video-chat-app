@@ -85,7 +85,11 @@ function Landing() {
               height: "85vh",
               backgroundImage:
                 'url("https://images.unsplash.com/photo-1633354931133-27ac1ee5d853?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NTJ8fGNoYXR8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60")',
-            }}
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "cover",
+              backgroundPosition: "center"
+            }
+          }
           ></Grid>
         </Grid>
       </Box>
