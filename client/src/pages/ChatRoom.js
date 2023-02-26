@@ -8,6 +8,7 @@ import MessageBoard from "../components/MessageForm";
 import Message from "../components/Message";
 import { Grid } from "@mui/material";
 import { socketID, socket } from "../Socket";
+import PrivateChatRoom from "../components/PrivateChatRoom";
 
 function App() {
   // -------- VARIABLES -------
@@ -147,6 +148,8 @@ useEffect(() =>{
         settings={settings}
         picture={connectedUser.picture}
       />
+      {room && (<PrivateChatRoom />)}
+      {/* {!room && ()} */}
       <Grid container spacing={2}>
         <Grid item xs={12} sm={4}>
           <Sidebar users={users} handleUserClick={handleUserClick} />
@@ -154,20 +157,19 @@ useEffect(() =>{
         <Grid item xs={12} sm={8}>
           <MessageBoard
             onClick={() => sendMessage()}
-            children={
-              <Message
+            picture={connectedUser.picture}
+            onChange={(event) => {
+              setMessage(event.target.value);
+            }}
+            connectedUser={connectedUser}>
+                <Message
                 chat={chat}
                 messageReceived={messageReceived}
                 connectedUser={connectedUser}
                 picture={connectedUser.picture}
               />
-            }
-            picture={connectedUser.picture}
-            onChange={(event) => {
-              setMessage(event.target.value);
-            }}
-            connectedUser={connectedUser}
-          />
+            </MessageBoard>
+
           {users.map((user) => {
             return <p>{user.username}</p>;
           })}
