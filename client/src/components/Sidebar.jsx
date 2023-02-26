@@ -8,13 +8,15 @@ import {
   ListItemAvatar,
   Avatar,
   ListItemText,
+  ListItemButton,
 } from "@mui/material";
 import Rooms from "./Rooms";
 import "../pages/test.css";
+import { socket } from "../Socket";
 
 // Sidebar will display available rooms and online users
 
-function Sidebar({ room, users }) {
+function Sidebar({ room, users, handleUserClick }) {
   // let rooms = ["first room", "second room", "third room"];
   // const [selectedIndex, setSelectedIndex] = React.useState(1);
   // const handleListItemClick = (event, index) => {
@@ -28,13 +30,7 @@ function Sidebar({ room, users }) {
         <Typography variant="h5" component="h2" mb={2}>
           Available Rooms
         </Typography>
-
         <Rooms />
-        {/* <List>   
-      {rooms.map((room, idx) => {
-        return <ListItem key={idx}>{room}</ListItem>;
-      })}
-      </List> */}
       </Box>
 
       {/* Online members section */}
@@ -46,10 +42,13 @@ function Sidebar({ room, users }) {
                 <ListItemAvatar>
                   <Avatar src={user[0].picture} />
                 </ListItemAvatar>
-                <ListItemText
-                  primary={user[0].username}
-                  // secondary={secondary ? 'Secondary text' : null}
-                />
+                <ListItemButton onClick={() => handleUserClick(user[0]._id)}>
+                  <ListItemText
+                    primary={user[0].username}
+
+                    // secondary={secondary ? 'Secondary text' : null}
+                  />
+                </ListItemButton>
               </ListItem>
             );
           })}
