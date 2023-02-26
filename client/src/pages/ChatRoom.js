@@ -1,4 +1,4 @@
-import * as React from "react";
+
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -6,6 +6,7 @@ import NavBar from "../components/NavBar";
 import Sidebar from "../components/Sidebar";
 import MessageBoard from "../components/MessageForm";
 import Message from "../components/Message";
+import PrivateMessage from "../components/PrivateMessage";
 import { Grid } from "@mui/material";
 import { socketID, socket } from "../Socket";
 import PrivateChatRoom from "../components/PrivateChatRoom";
@@ -23,7 +24,7 @@ function App() {
   let settings = ["Profile", "Account", "Dashboard", "Logout"];
 
   // -- Room Variables --
-  const [room, setRoom] = useState("");
+  const [room, setRoom] = useState(null);
 
   // const handleListItemClick = (event, idx, chatroom) => {
   //   setRoom(room);
@@ -40,12 +41,11 @@ function App() {
     username: "",
     picture: "",
   });
+  const [selectedUser, setSelectedUser] = useState(null);
 
   socket.on("connect", () => {
     setMessageReceived(`You are connected with id ${socketID}`);
   });
-
-
 
   // -------- HOOKS  -------
 
@@ -82,7 +82,7 @@ function App() {
   // listen to any changes coming from the socket
   useEffect(() => {
     socket.on(
-      "receive_message",
+      "receive_message, receive_private_message", 
       (data) => {
         setMessageReceived(data.message);
       },
@@ -91,23 +91,20 @@ function App() {
     getChat();
   }, [messageReceived]);
 
-// listen for message to join private chat room
-useEffect(() =>{
-  socket.on("join_room", (roomName) => {
-    setRoom(roomName)
-  })
-  // navigate("/chat/" + room)
-})
+  // listen for message to join private chat room
+  useEffect(() => {
+    socket.on("join_room", (roomName) => {
+      setRoom(roomName);
+    });
+  }, []);
 
   // -------- FUNCTIONS  -------
 
-  // // send a message throught the socket to the back end with the room number the user entered
-  // const joinRoom = () => {
-  //   if (room !== "") {
-  //     socket.emit("join_room", room);
-  //     alert(room);
-  //   }
-  // };
+  const handleLeaveRoom = () => {
+    socket.emit("leave_room", room);
+    setRoom(null);
+  };
+
 
   // send a message through the socket, once the user clicks the send button
   const sendMessage = () => {
@@ -118,10 +115,31 @@ useEffect(() =>{
       })
       .then(
         socket.emit("send_message", {
-          message,
-          // room
+          message
         })
       );
+      // setMessage("");
+  };
+
+  // send a message through the socket, once the user clicks the send button
+  const sendPrivateMessage = () => {
+    console.log(connectedUser.id )
+    console.log(selectedUser)
+    console.log(message)
+    console.log(room)
+    axios
+      .post("http://localhost:5000/chat/post", {
+        message,
+        sender: connectedUser.id,
+        receiver: selectedUser,
+        room,
+      })
+      .then(
+        socket.emit("send_private_message", {
+          message, sender: connectedUser.id, room
+        })
+      );  
+      // setMessage("");
   };
 
   // Function to get the chat from the db
@@ -131,13 +149,12 @@ useEffect(() =>{
     });
   };
 
-    // Handle the click of a user to a connected user  
-    async function handleUserClick(userId) {
-    socket.emit("start_private_room", userId, connectedUser.id)
-    }
 
-    
-   
+  // At the sidebar, handle the click of a user to another online user to send private message
+ function handleUserClick(userId) {
+    setSelectedUser(userId);
+    socket.emit("start_private_room", userId, connectedUser);
+  }
 
   // -------- RETURN STATEMENT  -------
 
@@ -148,37 +165,53 @@ useEffect(() =>{
         settings={settings}
         picture={connectedUser.picture}
       />
-      {/* {!room && ()} */}
       <Grid container spacing={2}>
         <Grid item xs={12} sm={4}>
           <Sidebar users={users} handleUserClick={handleUserClick} />
         </Grid>
         <Grid item xs={12} sm={8}>
-          <MessageBoard
-            onClick={() => sendMessage()}
-            picture={connectedUser.picture}
-            onChange={(event) => {
-              setMessage(event.target.value);
-            }}
-            connectedUser={connectedUser}>
-                 {room && (<PrivateChatRoom />)}
-                 {!room && (
-                <Message
+          {selectedUser && (
+            <PrivateChatRoom
+              picture={connectedUser.picture}
+              selectedUser={selectedUser}
+              onChange={(event) => {
+                setMessage(event.target.value);
+              }}
+              onClick={() => sendPrivateMessage()}
+              children ={
+                <PrivateMessage
+                chat={chat}
+                messageReceived={messageReceived}
+                connectedUser={connectedUser}
+                selectedUser={selectedUser}
+                picture={connectedUser.picture}
+              />
+              }
+            />
+          )}
+          {!selectedUser  && (
+            <MessageBoard
+              onClick={() => sendMessage()}
+              picture={connectedUser.picture}
+              onChange={(event) => {
+                setMessage(event.target.value);
+              }}
+              connectedUser={connectedUser}
+            >
+              <Message
                 chat={chat}
                 messageReceived={messageReceived}
                 connectedUser={connectedUser}
                 picture={connectedUser.picture}
-              />)}
+              />
             </MessageBoard>
-
-          {users.map((user) => {
-            return <p>{user.username}</p>;
-          })}
+          )}
           <button
             onClick={() => {
-              console.log(connectedUser, message);
-              console.table(users[0][0]);
-              console.table(users[0][1]);
+              console.log(connectedUser, messageReceived);
+              console.log(selectedUser);
+
+        
               // console.log(users[0][0].username);
             }}
           >
