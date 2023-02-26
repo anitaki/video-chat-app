@@ -11,6 +11,7 @@ const port = process.env.PORT || 5000;
 const authRouter = require("./routers/authRouter");
 const chatRouter = require("./routers/chatRouter");
 const User = require("./modules/userModule");
+const ObjectId = require('mongodb').ObjectId;
 
 
 // create an Http server, needed for socket.io to connect
@@ -56,8 +57,31 @@ io.on("connection", (socket) => {
   io.sockets.emit("newUserResponse", users);
 });  
 
+// listen for request for private chat 
 socket.on("start_private_room", (userId) => {
-  
+  // Save the sockets of both users
+  const sender = socket.id
+ 
+
+
+const result = users.find(user => ObjectId(user[0]._id).toString() === userId);
+
+if (result) {
+  const socketId = result.socketID;
+  console.log(`The socketID for ${userId} is ${socketId}`);
+} else {
+  console.log(`No item found with _id ${userId}`);
+}
+
+
+
+  // console.log(sender)
+  // console.log(userId)
+  // console.log(receiver)
+  // console.log(users)
+
+
+
 })
 
 // listens when a user disconnects 
@@ -70,7 +94,7 @@ socket.on("disconnect", () => {
   socket.disconnect;
 }) 
 });
-
+ 
 // server listening
 server.listen(port, () => {
   console.log(`Server is running at ${port}`);
