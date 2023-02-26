@@ -13,9 +13,9 @@ import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { Link } from "react-router-dom";
 import logo from "../assets/vine2.png";
-import { green } from '@mui/material/colors';
+import vine from "../assets/vine.png";
+import { green } from "@mui/material/colors";
 const greenColor = green[700];
-
 
 function NavBar({ pages, settings, picture }) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -40,7 +40,11 @@ function NavBar({ pages, settings, picture }) {
     <AppBar position="static" color="success" enableColorOnDark>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <img src={logo} alt="vine logo" style={{ width: "4.5rem", marginRight: ".5rem"  }} />
+          <img
+            src={logo}
+            alt="vine logo"
+            style={{ width: "4.5rem", marginRight: ".5rem" }}
+          />
           <Typography
             variant="h6"
             noWrap
@@ -56,7 +60,7 @@ function NavBar({ pages, settings, picture }) {
               textDecoration: "none",
             }}
           >
-          ChatVine
+            ChatVine
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -132,7 +136,7 @@ function NavBar({ pages, settings, picture }) {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Profile picture with menu" src={picture || "/static/images/avatar/2.jpg"} />
+                <Avatar alt="Profile picture with menu" src={picture || vine} />
               </IconButton>
             </Tooltip>
             <Menu

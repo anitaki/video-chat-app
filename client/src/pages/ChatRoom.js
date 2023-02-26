@@ -1,4 +1,3 @@
-
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -82,7 +81,7 @@ function App() {
   // listen to any changes coming from the socket
   useEffect(() => {
     socket.on(
-      "receive_message, receive_private_message", 
+      "receive_message, receive_private_message",
       (data) => {
         setMessageReceived(data.message);
       },
@@ -105,7 +104,6 @@ function App() {
     setRoom(null);
   };
 
-
   // send a message through the socket, once the user clicks the send button
   const sendMessage = () => {
     axios
@@ -115,18 +113,18 @@ function App() {
       })
       .then(
         socket.emit("send_message", {
-          message
+          message,
         })
       );
-      // setMessage("");
+    // setMessage("");
   };
 
   // send a message through the socket, once the user clicks the send button
   const sendPrivateMessage = () => {
-    console.log(connectedUser.id )
-    console.log(selectedUser)
-    console.log(message)
-    console.log(room)
+    console.log(connectedUser.id);
+    console.log(selectedUser);
+    console.log(message);
+    console.log(room);
     axios
       .post("http://localhost:5000/chat/post", {
         message,
@@ -136,10 +134,12 @@ function App() {
       })
       .then(
         socket.emit("send_private_message", {
-          message, sender: connectedUser.id, room
+          message,
+          sender: connectedUser.id,
+          room,
         })
-      );  
-      // setMessage("");
+      );
+    // setMessage("");
   };
 
   // Function to get the chat from the db
@@ -149,9 +149,8 @@ function App() {
     });
   };
 
-
   // At the sidebar, handle the click of a user to another online user to send private message
- function handleUserClick(userId) {
+  function handleUserClick(userId) {
     setSelectedUser(userId);
     socket.emit("start_private_room", userId, connectedUser);
   }
@@ -178,18 +177,18 @@ function App() {
                 setMessage(event.target.value);
               }}
               onClick={() => sendPrivateMessage()}
-              children ={
+              children={
                 <PrivateMessage
-                chat={chat}
-                messageReceived={messageReceived}
-                connectedUser={connectedUser}
-                selectedUser={selectedUser}
-                picture={connectedUser.picture}
-              />
+                  chat={chat}
+                  messageReceived={messageReceived}
+                  connectedUser={connectedUser}
+                  selectedUser={selectedUser}
+                  picture={connectedUser.picture}
+                />
               }
             />
           )}
-          {!selectedUser  && (
+          {!selectedUser && (
             <MessageBoard
               onClick={() => sendMessage()}
               picture={connectedUser.picture}
@@ -211,7 +210,6 @@ function App() {
               console.log(connectedUser, messageReceived);
               console.log(selectedUser);
 
-        
               // console.log(users[0][0].username);
             }}
           >
