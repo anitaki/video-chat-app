@@ -7,7 +7,7 @@ import DivRef from "./DivRef";
 function MessageForm({ children, onChange, onClick, picture, selectedUser }) {
   return (
     <div>
-       <Typography>This is your private chat with {selectedUser}</Typography>
+      <Typography>This is your private chat with {selectedUser}</Typography>
       {/* Area to display chat messages */}
       <Box
         sx={{

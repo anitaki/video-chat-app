@@ -14,14 +14,19 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import "../pages/test.css";
 import profileImg from "../assets/sample.webp";
 
-function PrivateMessage({ chat, connectedUser, selectedUser, onClick, picture }) {
+function PrivateMessage({
+  chat,
+  connectedUser,
+  selectedUser,
+  onClick,
+  picture,
+}) {
   // Function to delete one of your chat messages from the db
   const deleteMessage = (id) => {
     axios.delete("http://localhost:5000/chat/" + id);
     window.location.reload(true);
   };
 
- 
   return (
     <Typography>
       <Container sx={{ display: "flex", flexDirection: "column" }}>
@@ -201,7 +206,7 @@ function PrivateMessage({ chat, connectedUser, selectedUser, onClick, picture })
               </Box>
             );
           } else {
-            return (<p>else</p>)
+            return <p>else</p>;
           }
         })}
       </Container>

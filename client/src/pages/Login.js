@@ -47,7 +47,7 @@ function LogIn() {
         if (data.token) {
           localStorage.setItem("token", data.token);
           localStorage.setItem("user", data);
-          socket.emit('newUser', { username, socketID: socket.id });
+          socket.emit("newUser", { username, socketID: socket.id });
           navigate("/chat");
         } else {
           alert(data.message);

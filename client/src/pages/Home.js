@@ -5,6 +5,7 @@ import SendIcon from "@mui/icons-material/Send";
 import { Grid, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
+
 function Landing() {
   const navigate = useNavigate();
   // Set the props values for the NavBar
