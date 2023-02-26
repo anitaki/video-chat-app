@@ -21,8 +21,8 @@ function App() {
   ];
   let settings = ["Profile", "Account", "Dashboard", "Logout"];
 
-  // // -- Room Variables --
-  // const [room, setRoom] = useState("");
+  // -- Room Variables --
+  const [room, setRoom] = useState("");
 
   // const handleListItemClick = (event, idx, chatroom) => {
   //   setRoom(room);
@@ -90,6 +90,14 @@ function App() {
     getChat();
   }, [messageReceived]);
 
+// listen for message to join private chat room
+useEffect(() =>{
+  socket.on("join_room", (roomName) => {
+    setRoom(roomName)
+  })
+  // navigate("/chat/" + room)
+})
+
   // -------- FUNCTIONS  -------
 
   // // send a message throught the socket to the back end with the room number the user entered
@@ -123,9 +131,12 @@ function App() {
   };
 
     // Handle the click of a user to a connected user  
-    function handleUserClick(userId) {
-      socket.emit("start_private_room", userId)
+    async function handleUserClick(userId) {
+    socket.emit("start_private_room", userId, connectedUser.id)
     }
+
+    
+   
 
   // -------- RETURN STATEMENT  -------
 
