@@ -1,5 +1,14 @@
 // import * as React from 'react';
-import { List, ListItem, Typography, Box, Container } from "@mui/material";
+import {
+  Box,
+  Container,
+  Typography,
+  List,
+  ListItem,
+  ListItemAvatar,
+  Avatar,
+  ListItemText,
+} from "@mui/material";
 import Rooms from "./Rooms";
 import "../pages/test.css";
 
@@ -30,12 +39,28 @@ function Sidebar({ room, users }) {
 
       {/* Online members section */}
       <Box mt={5}>
-        <Typography variant="h5" component="h2" mb={2}>
+        <List>
+          {users.map((user) => {
+            return (
+              <ListItem key={user}>
+                <ListItemAvatar>
+                  <Avatar src={user[0].picture} />
+                </ListItemAvatar>
+                <ListItemText
+                  primary={user[0].username}
+                  // secondary={secondary ? 'Secondary text' : null}
+                />
+              </ListItem>
+            );
+          })}
+        </List>
+
+        {/* <Typography variant="h5" component="h2" mb={2}>
           Members
         </Typography>
         {users.map((user) => {
           return <Typography key={user}>{user[0].username}</Typography>;
-        })}
+        })} */}
       </Box>
     </Container>
   );
