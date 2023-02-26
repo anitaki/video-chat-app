@@ -44,6 +44,8 @@ function App() {
     setMessageReceived(`You are connected with id ${socketID}`);
   });
 
+
+
   // -------- HOOKS  -------
 
   // get the list of online users from socket.io
@@ -120,6 +122,11 @@ function App() {
     });
   };
 
+    // Handle the click of a user to a connected user  
+    function handleUserClick(userId) {
+      socket.emit("start_private_room", userId)
+    }
+
   // -------- RETURN STATEMENT  -------
 
   return (
@@ -131,7 +138,7 @@ function App() {
       />
       <Grid container spacing={2}>
         <Grid item xs={12} sm={4}>
-          <Sidebar users={users} />
+          <Sidebar users={users} handleUserClick={handleUserClick} />
         </Grid>
         <Grid item xs={12} sm={8}>
           <MessageBoard
