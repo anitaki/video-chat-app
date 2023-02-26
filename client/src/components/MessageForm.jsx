@@ -1,7 +1,6 @@
-import { TextField, Box, Button, IconButton } from "@mui/material";
+import { TextField, Box, IconButton } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import DivRef from "./DivRef";
-import * as mdb from "mdb-ui-kit";
 
 // Create the input field and Submit button where user will type and send his/her new message
 

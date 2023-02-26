@@ -38,11 +38,6 @@ const io = new Server(server, {
 // listen when a user connects to our socket server by listening to connection event
 io.on("connection", (socket) => {
   console.log(`⚡: ${socket.id} user just connected!`);
-  // listen for a sent message and then emit it to everyone in our room
-  socket.on("send_message", (data) => {
-    // listen for a sent message and then emit it to everyone in our socket server except ourselvess
-    io.sockets.emit("receive_message", data); // OR socket.to(data.room).emit("receive_message", data);
-  });
 
   // listens when a new user joins the server
   socket.on("newUser", async (data) => {
@@ -54,16 +49,27 @@ io.on("connection", (socket) => {
     io.sockets.emit("newUserResponse", users);
   });
 
+  // listen for a sent message and then emit it to everyone in our room
+  socket.on("send_message", (data) => {
+    // listen for a sent message and then emit it to everyone in our socket server except ourselvess
+    io.sockets.emit("receive_message", data); // OR socket.to(data.room).emit("receive_message", data);
+  });
+
+  // listens for a private message event coming from the user in a private room
+  socket.on("send_private_message", (message, sender, room) => {
+    socket.to(room).emit("receive_private_message", message)
+  });
+
   // listen for request for private chat
   socket.on("start_private_room", (userId, connectedUser) => {
     // Save the ids of the sender and the receiver
-    const senderId = connectedUser;
+    const senderId = connectedUser.id;
     const receiverId = userId;
-    
+
     // Save the sockets for the sender
     const senderSocketId = socket.id;
     let receiverSocketId;
-    
+
     // Find and save the socket for the receiver
     const result = users.find(
       (user) => ObjectId(user[0]._id).toString() === userId
@@ -78,6 +84,7 @@ io.on("connection", (socket) => {
 
     // Create a unique room name for the private chat session
     const roomName = `${senderId}-${receiverId}`;
+    console.log("Room is: ", roomName)
 
     // Emit a "join room" event for both the sender and the receiver
     socket.join(roomName);
@@ -85,7 +92,7 @@ io.on("connection", (socket) => {
   });
 
   // listens for an the event when a user leaves the room
-  socket.on("leave room", (roomName) => {
+  socket.on("leave_room", (roomName) => {
     socket.leave(roomName);
   });
 

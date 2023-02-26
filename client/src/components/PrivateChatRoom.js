@@ -1,19 +1,15 @@
-import React from 'react'
-
 import { TextField, Box, Typography, IconButton } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import DivRef from "./DivRef";
-import * as mdb from "mdb-ui-kit";
 
 // Create the input field and Submit button where user will type and send his/her new message
 
-function PrivateChatRoom ({ children, onChange, onClick, picture }) {
+function MessageForm({ children, onChange, onClick, picture, selectedUser }) {
   return (
     <div>
-
-<p>Private Chat</p>
-  
-      {/* <Box
+       <Typography>This is your private chat with {selectedUser}</Typography>
+      {/* Area to display chat messages */}
+      <Box
         sx={{
           m: 1,
           width: "90%",
@@ -24,13 +20,12 @@ function PrivateChatRoom ({ children, onChange, onClick, picture }) {
           overflowX: "none",
         }}
       >
-        <Typography>Private Chat</Typography>
         {children}
         <DivRef />
-      </Box> */}
+      </Box>
 
       {/* Input field for new message */}
-      {/* <Box sx={{ display: "flex", alignItems: "center", pl: 5 }}>
+      <Box sx={{ display: "flex", alignItems: "center", pl: 5 }}>
         <img
           src={picture}
           alt="avatar"
@@ -52,17 +47,13 @@ function PrivateChatRoom ({ children, onChange, onClick, picture }) {
           onChange={onChange}
         />
 
+        {/* Submit button for new private message */}
         <IconButton aria-label="send message">
           <SendIcon color="warning" onClick={onClick} />
         </IconButton>
-      </Box> */}
-
-
-      
+      </Box>
     </div>
   );
 }
 
-
-
-export default PrivateChatRoom;
+export default MessageForm;
