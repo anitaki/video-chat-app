@@ -148,7 +148,6 @@ useEffect(() =>{
         settings={settings}
         picture={connectedUser.picture}
       />
-      {room && (<PrivateChatRoom />)}
       {/* {!room && ()} */}
       <Grid container spacing={2}>
         <Grid item xs={12} sm={4}>
@@ -162,12 +161,14 @@ useEffect(() =>{
               setMessage(event.target.value);
             }}
             connectedUser={connectedUser}>
+                 {room && (<PrivateChatRoom />)}
+                 {!room && (
                 <Message
                 chat={chat}
                 messageReceived={messageReceived}
                 connectedUser={connectedUser}
                 picture={connectedUser.picture}
-              />
+              />)}
             </MessageBoard>
 
           {users.map((user) => {
