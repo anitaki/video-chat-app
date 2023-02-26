@@ -55,13 +55,16 @@ io.on("connection", (socket) => {
   });
 
   // listen for request for private chat
-  socket.on("start_private_room", (userId) => {
+  socket.on("start_private_room", (userId, connectedUser) => {
+    // Save the ids of the sender and the receiver
+    const senderId = connectedUser;
+    const receiverId = userId;
+    
     // Save the sockets for the sender
     const senderSocketId = socket.id;
-
-    // Find and save the socket for the receiver
     let receiverSocketId;
-
+    
+    // Find and save the socket for the receiver
     const result = users.find(
       (user) => ObjectId(user[0]._id).toString() === userId
     );
@@ -74,11 +77,11 @@ io.on("connection", (socket) => {
     }
 
     // Create a unique room name for the private chat session
-    const roomName = `${senderSocketId}-${receiverSocketId}`;
+    const roomName = `${senderId}-${receiverId}`;
 
     // Emit a "join room" event for both the sender and the receiver
-    socket.join(roomName);``
-    io.to(targetUserId).emit("join room", roomName);
+    socket.join(roomName);
+    io.to(receiverSocketId).emit("join_room", roomName);
   });
 
   // listens for an the event when a user leaves the room
