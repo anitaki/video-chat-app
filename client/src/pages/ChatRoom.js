@@ -156,7 +156,8 @@ function App() {
           <button
             onClick={() => {
               console.log(connectedUser, message);
-              console.log(chat);
+              console.table(users[0][0]);
+              console.table(users[0][1]);
               // console.log(users[0][0].username);
             }}
           >
