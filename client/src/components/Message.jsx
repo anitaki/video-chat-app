@@ -27,12 +27,15 @@ function Message({ chat, connectedUser, onClick, picture }) {
         {chat.map((chatmessage) => {
           if (chatmessage?.sender?._id === connectedUser.id) {
             return (
+              // Display the list of messages of current user
               <Box sx={{ display: "flex", alignItems: "center" }}>
+                {/* Display Avatar */}
                 <Avatar
                   alt="Profile picture with menu"
                   src={picture || profileImg}
                   style={{ width: "3.5rem", height: "3.5rem" }}
                 />
+                {/* Display Single Message */}
                 <Paper
                   key={chatmessage._id}
                   sx={{
@@ -48,6 +51,7 @@ function Message({ chat, connectedUser, onClick, picture }) {
                     borderRadius: "30px",
                   }}
                 >
+                  {/* Display who sent the message and time of message */}
                   <Box
                     sx={{
                       width: "100%",
@@ -75,6 +79,7 @@ function Message({ chat, connectedUser, onClick, picture }) {
                       </Typography>
                     </Box>
                   </Box>
+                  {/* Display message and delete icon */}
                   <Box
                     sx={{
                       width: "100%",
@@ -104,6 +109,7 @@ function Message({ chat, connectedUser, onClick, picture }) {
             );
           } else {
             return (
+              // Display the list of messages from other users
               <Box
                 sx={{
                   display: "flex",
@@ -111,8 +117,10 @@ function Message({ chat, connectedUser, onClick, picture }) {
                   justifyContent: "flex-end",
                 }}
               >
+                {/* Display Single Message */}
                 <Paper
                   key={chatmessage._id}
+                  elevation={2}
                   sx={{
                     display: "flex",
                     flexDirection: "row",
@@ -127,6 +135,7 @@ function Message({ chat, connectedUser, onClick, picture }) {
                     borderRadius: "30px",
                   }}
                 >
+                  {/* Display who sent the message and time of message */}
                   <Box
                     sx={{
                       width: "100%",
@@ -156,6 +165,7 @@ function Message({ chat, connectedUser, onClick, picture }) {
                       </Typography>
                     </Box>
                   </Box>
+                  {/* Display message and delete icon */}
                   <Box
                     sx={{
                       width: "100%",
@@ -181,6 +191,7 @@ function Message({ chat, connectedUser, onClick, picture }) {
                     </IconButton>
                   </Box>
                 </Paper>
+                {/* Display Avatar */}
                 <Avatar
                   alt="Profile picture with menu"
                   src={chatmessage?.sender?.picture || profileImg}
