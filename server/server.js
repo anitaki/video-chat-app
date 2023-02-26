@@ -56,6 +56,10 @@ io.on("connection", (socket) => {
   io.sockets.emit("newUserResponse", users);
 });  
 
+socket.on("start_private_room", (userId) => {
+  
+})
+
 // listens when a user disconnects 
 socket.on("disconnect", () => {
   console.log('🔥: A user disconnected'); 

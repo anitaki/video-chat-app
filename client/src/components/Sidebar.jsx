@@ -38,7 +38,7 @@ function Sidebar({ room, users, handleUserClick }) {
         <List>
           {users.map((user) => {
             return (
-              <ListItem key={user}>
+              <ListItem key={user[0]._id}>
                 <ListItemAvatar>
                   <Avatar src={user[0].picture} />
                 </ListItemAvatar>
