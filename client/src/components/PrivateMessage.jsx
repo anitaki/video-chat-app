@@ -27,6 +27,7 @@ function PrivateMessage({
     // window.location.reload(true);
   };
 
+  // Filter the messages that are exchanged between the users of the private chat
   const filteredMessages = chat.filter(
     (chatmessage) =>
       (chatmessage?.sender?._id === connectedUser.id &&
