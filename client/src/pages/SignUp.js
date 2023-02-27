@@ -93,7 +93,7 @@ function SignUp() {
       })
       .then(({ data }) => {
         if (data.message === true) {
-          navigate("/");
+          navigate("/login");
         } else {
           alert(data.message);
         }

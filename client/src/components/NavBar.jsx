@@ -159,7 +159,7 @@ function NavBar({ pages, settings, picture }) {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                <MenuItem onClick={handleCloseUserMenu}>
                   <Link href={setting.href} underline="hover" color="secondary" focusVisible>
                     <Typography textAlign="center">{setting.text} </Typography>
                   </Link>
