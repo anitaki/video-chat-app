@@ -10,11 +10,14 @@ import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import { Link } from "react-router-dom";
+import Link from '@mui/material/Link';
+// import { Link } from "react-router-dom";
 import logo from "../assets/vine2.png";
 import vine from "../assets/vine.png";
 
 function NavBar({ pages, settings, picture }) {
+
+  //handle navbar clicks
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -63,7 +66,7 @@ function NavBar({ pages, settings, picture }) {
           </Typography>
           {/* Hamburger menu with List of Pages for smaller viewports */}
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
+            {/* <IconButton
               size="large"
               aria-label="account of current user"
               aria-controls="menu-appbar"
@@ -93,12 +96,12 @@ function NavBar({ pages, settings, picture }) {
             >
               {pages.map((page) => (
                 <MenuItem onClick={handleCloseNavMenu}>
-                  <Link style={{}} to={page.href}>
+                  <Link style={{}} href={page.href}>
                     <Typography textAlign="center">{page.text}</Typography>
                   </Link>
                 </MenuItem>
               ))}
-            </Menu>
+            </Menu> */}
           </Box>
           {/* Name of Chat application on smaller viewports, clicked leads to home page */}
           <Typography
@@ -121,16 +124,16 @@ function NavBar({ pages, settings, picture }) {
           </Typography>
           {/* List of Pages on larger viewports */}
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
+            {/* {pages.map((page) => (
               <MenuItem onClick={handleCloseNavMenu}>
                 <Link
                   style={{ color: "inherit", textDecoration: "none" }}
-                  to={page.href}
+                  href={page.href}
                 >
                   <Typography textAlign="center">{page.text}</Typography>
                 </Link>
               </MenuItem>
-            ))}
+            ))} */}
           </Box>
           {/* Avatar with menu */}
           <Box sx={{ flexGrow: 0 }}>
@@ -157,8 +160,8 @@ function NavBar({ pages, settings, picture }) {
             >
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Link style={{}} to={setting.href}>
-                    <Typography textAlign="center">{setting.text}</Typography>
+                  <Link href={setting.href} underline="hover" color="secondary" focusVisible>
+                    <Typography textAlign="center">{setting.text} </Typography>
                   </Link>
                 </MenuItem>
               ))}
