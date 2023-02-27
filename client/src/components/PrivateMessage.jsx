@@ -24,7 +24,7 @@ function PrivateMessage({
   // Function to delete one of your chat messages from the db
   const deleteMessage = (id) => {
     axios.delete("http://localhost:5000/chat/" + id);
-    window.location.reload(true);
+    // window.location.reload(true);
   };
 
   return (

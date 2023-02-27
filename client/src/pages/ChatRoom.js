@@ -81,7 +81,7 @@ function App() {
   // listen to any changes coming from the socket
   useEffect(() => {
     socket.on(
-      "receive_message, receive_private_message",
+      "receive_message",
       (data) => {
         setMessageReceived(data.message);
       },
