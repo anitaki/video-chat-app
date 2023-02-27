@@ -27,10 +27,21 @@ function PrivateMessage({
     // window.location.reload(true);
   };
 
+  const filteredMessages = 
+    chat.filter(
+      (chatmessage) =>
+        (chatmessage?.sender?._id === connectedUser.id &&
+          chatmessage?.receiver?._id === selectedUser) ||
+        (chatmessage?.sender?._id === selectedUser &&
+          chatmessage?.receiver?._id === connectedUser.id  )
+    );
+ 
+  
+
   return (
     <Typography>
       <Container sx={{ display: "flex", flexDirection: "column" }}>
-        {chat.map((chatmessage) => {
+        {filteredMessages.map((chatmessage) => {
           if (chatmessage?.sender?._id === connectedUser.id) {
             return (
               // *** Display the list of messages of current user ***
@@ -101,7 +112,8 @@ function PrivateMessage({
 
                     <IconButton
                       onClick={() => {
-                        deleteMessage(chatmessage._id);
+                        // deleteMessage(chatmessage._id);
+                        console.log(filteredMessages)
                       }}
                       aria-label="Delete message"
                     >
@@ -113,7 +125,7 @@ function PrivateMessage({
                 </Paper>
               </Box>
             );
-          } else if (chatmessage?.sender?._id === selectedUser.id) {
+          } else {
             return (
               // *** Display the list of messages from other users ***
               <Box
@@ -205,9 +217,7 @@ function PrivateMessage({
                 />
               </Box>
             );
-          } else {
-            return <p>else</p>;
-          }
+          } 
         })}
       </Container>
       {/* {messageReceived} */}
