@@ -21,7 +21,11 @@ function LogIn() {
     { text: "Chat", href: "/chat" },
     { text: "Login", href: "/login" },
   ];
-  let settings = ["Profile", "Account", "Dashboard", "Logout"];
+  let settings = [
+    { text: "Profile", href: "/chat" },
+    { text: "Chat", href: "/chat" },
+    { text: "Logout", href: "/logout" },
+  ];
 
   //  Handle show/hide password in the password form field
   const [showPassword, setShowPassword] = useState(false);

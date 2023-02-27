@@ -10,12 +10,9 @@ import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
 import { Link } from "react-router-dom";
 import logo from "../assets/vine2.png";
 import vine from "../assets/vine.png";
-
-
 
 function NavBar({ pages, settings, picture }) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -64,7 +61,7 @@ function NavBar({ pages, settings, picture }) {
           >
             ChatVine
           </Typography>
-            {/* Hamburger menu with List of Pages for smaller viewports */}
+          {/* Hamburger menu with List of Pages for smaller viewports */}
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -160,7 +157,9 @@ function NavBar({ pages, settings, picture }) {
             >
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                  <Link style={{}} to={setting.href}>
+                    <Typography textAlign="center">{setting.text}</Typography>
+                  </Link>
                 </MenuItem>
               ))}
             </Menu>

@@ -11,7 +11,6 @@ import { Grid } from "@mui/material";
 import { socketID, socket } from "../Socket";
 
 function App() {
-
   // -------- VARIABLES -------
 
   const navigate = useNavigate();
@@ -21,7 +20,11 @@ function App() {
     { text: "Chat", href: "/chat" },
     { text: "Logout", href: "/logout" },
   ];
-  let settings = ["Profile",  "Logout"];
+  let settings = [
+    { text: "Profile", href: "/chat" },
+    { text: "Chat", href: "/chat" },
+    { text: "Logout", href: "/logout" },
+  ];
 
   // -- Room Variables --
   const [room, setRoom] = useState(null);
@@ -45,8 +48,6 @@ function App() {
 
   // -------- HOOKS  -------
 
-
-
   // *** Show chat only to authenticated users
   useEffect(() => {
     // authenticate the user and get the token from localstorage
@@ -62,7 +63,7 @@ function App() {
             username: data.username,
             picture: data.picture,
           });
-        })    
+        });
       // if the user is not authenticated redirect to home page
     } else {
       navigate("/login");
@@ -71,26 +72,19 @@ function App() {
     getChat();
   }, []);
 
-
-   // *** get the list of online users from socket.io
+  // *** get the list of online users from socket.io
   useEffect(() => {
     socket.on("newUserResponse", (users) => setUsers(users));
   }, [messageReceived]);
 
   // *** listen to general and private messages coming from the socket
   useEffect(() => {
-    socket.on(
-      "receive_message",
-      (data) => {
-        setMessageReceived(data.message);
-      }
-    );
-    socket.on(
-          "receive_private_message",
-          (data) => {
-            setMessageReceived(data.message);
-          }
-          );
+    socket.on("receive_message", (data) => {
+      setMessageReceived(data.message);
+    });
+    socket.on("receive_private_message", (data) => {
+      setMessageReceived(data.message);
+    });
     getChat();
   }, [messageReceived]);
 
@@ -122,7 +116,7 @@ function App() {
   const handleLeaveRoom = (event) => {
     socket.emit("leave_room", room);
     setRoom(null);
-    setSelectedUser(null)
+    setSelectedUser(null);
   };
 
   // send a message through the socket, once the user clicks the send button
@@ -158,7 +152,7 @@ function App() {
           message,
           sender: connectedUser.id,
           room,
-        })
+        });
       });
     setMessage("");
   };
@@ -175,7 +169,6 @@ function App() {
     setSelectedUser(userId);
     socket.emit("start_private_room", userId, connectedUser);
   }
-  
 
   // -------- RETURN STATEMENT  -------
 
@@ -189,7 +182,11 @@ function App() {
       />
       <Grid container spacing={2}>
         <Grid item xs={12} sm={4}>
-          <Sidebar users={users} handleUserClick={handleUserClick} handleLeaveRoom={handleLeaveRoom} />
+          <Sidebar
+            users={users}
+            handleUserClick={handleUserClick}
+            handleLeaveRoom={handleLeaveRoom}
+          />
         </Grid>
         <Grid item xs={12} sm={8}>
           {/* Display the private chat if a user is selected */}
@@ -235,7 +232,6 @@ function App() {
               console.log(connectedUser, messageReceived);
               console.log("selected User: " + selectedUser);
               console.log("private message" + privateMessageReceived);
-
 
               // console.log(users[0][0].username);
             }}
