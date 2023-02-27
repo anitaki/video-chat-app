@@ -9,13 +9,12 @@ function Landing() {
   const navigate = useNavigate();
   // Set the props values for the NavBar
   let pages = [
-    { text: "Chat", href: "/chat" },
+    { text: "Register", href: "/register" },
     { text: "Login", href: "/login" },
   ];
   let settings = [
-    { text: "Profile", href: "/chat" },
-    { text: "Chat", href: "/chat" },
-    { text: "Logout", href: "/logout" },
+    { text: "Profile", href: "#" },
+    { text: "Chat", href: "/login" },
   ];
 
   return (
@@ -63,7 +62,7 @@ function Landing() {
               Your New Go-To Chat App!
             </Typography>
             <Typography variant="subtitle1" mb={3} px={2}>
-              Stay connected with your loved ones anytime, anywhere.{" "}
+              Stay connected with your loved ones anytime, anywhere{" "}
             </Typography>
             <Button
               onClick={() => {

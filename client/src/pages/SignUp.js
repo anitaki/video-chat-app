@@ -18,13 +18,12 @@ import profileImg from "../assets/sample.webp";
 function SignUp() {
   // set the props for the NavBar
   let pages = [
-    { text: "Chat", href: "/chat" },
+    // { text: "Chat", href: "/chat" },
     { text: "Login", href: "/login" },
   ];
   let settings = [
     { text: "Profile", href: "/chat" },
-    { text: "Chat", href: "/chat" },
-    { text: "Logout", href: "/logout" },
+    { text: "Chat", href: "/login" },
   ];
 
   //  Handle show/hide password in the password form field
@@ -219,14 +218,16 @@ function SignUp() {
               signup();
             }}
           />
-          <Typography variant="body1" mt={2}>
+          <Typography variant="body1" mt={3}>
             Already have an account?
             <Button
               variant="text"
               color="secondary"
+              size="large"
               onClick={() => {
                 navigate("/login");
               }}
+              style={{fontWeight:"700"}}
             >
               Login
             </Button>

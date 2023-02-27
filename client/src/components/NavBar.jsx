@@ -66,7 +66,7 @@ function NavBar({ pages, settings, picture }) {
           </Typography>
           {/* Hamburger menu with List of Pages for smaller viewports */}
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            {/* <IconButton
+            <IconButton
               size="large"
               aria-label="account of current user"
               aria-controls="menu-appbar"
@@ -101,7 +101,7 @@ function NavBar({ pages, settings, picture }) {
                   </Link>
                 </MenuItem>
               ))}
-            </Menu> */}
+            </Menu>
           </Box>
           {/* Name of Chat application on smaller viewports, clicked leads to home page */}
           <Typography
@@ -123,8 +123,8 @@ function NavBar({ pages, settings, picture }) {
             ChatVine
           </Typography>
           {/* List of Pages on larger viewports */}
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {/* {pages.map((page) => (
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" }, justifyContent: "flex-end"}}>
+            {pages.map((page) => (
               <MenuItem onClick={handleCloseNavMenu}>
                 <Link
                   style={{ color: "inherit", textDecoration: "none" }}
@@ -133,12 +133,12 @@ function NavBar({ pages, settings, picture }) {
                   <Typography textAlign="center">{page.text}</Typography>
                 </Link>
               </MenuItem>
-            ))} */}
+            ))}
           </Box>
           {/* Avatar with menu */}
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, ml: 3 }}>
                 <Avatar alt="Profile picture with menu" src={picture || vine} />
               </IconButton>
             </Tooltip>
