@@ -22,9 +22,9 @@ function Message({ chat, connectedUser, onClick, picture }) {
   };
 
   // Filter out the messages that belong to the private chat
-  const filteredMessages = chat.filter(
-    (chatmessage) => !chatmessage?.receiver?._id
-  );
+  const filteredMessages = chat
+  .filter(chatmessage => !chatmessage?.receiver?._id)
+  .slice(-50);
 
   return (
     <Typography>
