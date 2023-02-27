@@ -12,9 +12,12 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { Link } from "react-router-dom";
-import { ChatBubbleOutlineTwoTone } from "@mui/icons-material";
+import logo from "../assets/vine2.png";
+import { green } from '@mui/material/colors';
+const greenColor = green[700];
 
-function NavBar({ pages, settings }) {
+
+function NavBar({ pages, settings, picture }) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -34,10 +37,10 @@ function NavBar({ pages, settings }) {
   };
 
   return (
-    <AppBar position="static" color="secondary" enableColorOnDark>
+    <AppBar position="static" color="success" enableColorOnDark>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <ChatBubbleOutlineTwoTone sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+          <img src={logo} alt="vine logo" style={{ width: "4.5rem", marginRight: ".5rem"  }} />
           <Typography
             variant="h6"
             noWrap
@@ -86,7 +89,7 @@ function NavBar({ pages, settings }) {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                <MenuItem onClick={handleCloseNavMenu}>
                   <Link style={{}} to={page.href}>
                     <Typography textAlign="center">{page.text}</Typography>
                   </Link>
@@ -115,7 +118,7 @@ function NavBar({ pages, settings }) {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
-              <MenuItem key={page} onClick={handleCloseNavMenu}>
+              <MenuItem onClick={handleCloseNavMenu}>
                 <Link
                   style={{ color: "inherit", textDecoration: "none" }}
                   to={page.href}
@@ -129,7 +132,7 @@ function NavBar({ pages, settings }) {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="Profile picture with menu" src={picture || "/static/images/avatar/2.jpg"} />
               </IconButton>
             </Tooltip>
             <Menu

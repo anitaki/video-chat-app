@@ -5,6 +5,7 @@ import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import Logout from "./pages/Logout"
 import ChatRoom from "./pages/ChatRoom";
+import Test from "./pages/Test"
 import Rooms from "./components/Rooms";
 
 function App() {
@@ -18,6 +19,9 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/chat" element={<ChatRoom />} />
             <Route path="/logout" element={<Logout />} />
+            <Route path="/test" element={<Test />} />
+
+
           </Routes>
         </div>
       </Router>

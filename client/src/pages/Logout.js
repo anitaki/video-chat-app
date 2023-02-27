@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Logout() {
@@ -7,8 +7,10 @@ function Logout() {
   useEffect(() => {
     if (localStorage.getItem("token")) {
       localStorage.removeItem("token");
+      localStorage.removeItem("user");
     }
     navigate("/login");
+    window.location.reload();
   });
 }
 

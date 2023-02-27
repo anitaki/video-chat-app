@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 
 
 const registerUser = async (req, res) => {
-const {username, email, password} = req.body
+const {username, email, password, picture} = req.body
 
   try {
     // Check if user has completed all input fields
@@ -22,6 +22,7 @@ const {username, email, password} = req.body
             let newUser = new User({
               username,
               email,
+              picture,
               password: hash,
             });
 
