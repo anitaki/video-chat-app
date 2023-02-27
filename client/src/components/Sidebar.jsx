@@ -9,22 +9,15 @@ import {
   Avatar,
   ListItemText,
   ListItemButton,
+  Divider,
 } from "@mui/material";
-import Rooms from "./Rooms";
 import "../pages/test.css";
 import { socket } from "../Socket";
 
-
-
 // Sidebar will display available rooms and online users
 
-function Sidebar({ room, users, handleUserClick }) {
-  // let rooms = ["first room", "second room", "third room"];
-  // const [selectedIndex, setSelectedIndex] = React.useState(1);
-  // const handleListItemClick = (event, index) => {
-  //   setSelectedIndex(index);
-  // };
-  
+function Sidebar({ room, users, handleUserClick, handleLeaveRoom }) {
+  let rooms = ["General"];
 
   return (
     <Container pl={5}>
@@ -33,7 +26,22 @@ function Sidebar({ room, users, handleUserClick }) {
         <Typography variant="h5" component="h2" mb={2}>
           Available Rooms
         </Typography>
-        <Rooms />
+        {/* <Rooms/> */}
+        <Box sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
+          <List component="nav" aria-label="secondary mailbox folder">
+            {rooms.map((room, idx) => {
+              return (
+                <ListItemButton
+                  key={room}
+                  onClick={(event) => handleLeaveRoom(event)}
+                >
+                  <ListItemText primary={room} />
+                </ListItemButton>
+              );
+            })}
+          </List>
+          <Divider />
+        </Box>
       </Box>
 
       {/* Online members section */}
