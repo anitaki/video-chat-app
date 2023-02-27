@@ -105,7 +105,7 @@ io.on("connection", (socket) => {
     io.sockets.emit("newUserResponse", users);
     socket.disconnect;
   });
-});
+});  
 
 // server listening
 server.listen(port, () => {

@@ -22,7 +22,6 @@ function MessageForm({ children, onChange, onClick, picture }) {
         {children}
         <DivRef />
       </Box>
-
       {/* Input field for new message */}
       <Box sx={{ display: "flex", alignItems: "center", pl: 5 }}>
         <img
@@ -45,20 +44,13 @@ function MessageForm({ children, onChange, onClick, picture }) {
           sx={{ ml: 2, my: 1, width: "60%" }}
           onChange={onChange}
         />
-
         {/* Submit button for new message */}
-
-        {/* <Button
-          variant="contained"
-          color="warning"
-          size="large"
-          sx={{ m: 0, width: "10%", height: "3.5rem" }}
-          onClick={onClick}
-        >
-         Send
-        </Button> */}
         <IconButton aria-label="send message">
-          <SendIcon color="secondary" onClick={onClick} sx={{ ml: 1, width: "2rem", height: "3.5rem" }} />
+          <SendIcon
+            color="secondary"
+            onClick={onClick}
+            sx={{ ml: 1, width: "2rem", height: "3.5rem" }}
+          />
         </IconButton>
       </Box>
     </div>

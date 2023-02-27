@@ -30,6 +30,7 @@ function App() {
   // -- Chat Variables --
   const [chat, setChat] = useState([]);
   const [message, setMessage] = useState("");
+  const [privateMessage, setPrivateMessage] = useState("");
   const [messageReceived, setMessageReceived] = useState("");
   const [privateMessageReceived, setPrivateMessageReceived] = useState("");
   const [users, setUsers] = useState([]);
@@ -80,22 +81,29 @@ function App() {
     socket.on("receive_message", (data) => {
       setMessageReceived(data.message);
     });
+    getChat();
+    // cleanup function
+    return () => {
+      socket.off("receive_message");
+    };
+  }, [messageReceived, socket]);
+
+  useEffect(() => {
+
+    const handleprivatemessage = (data) => {
+      setPrivateMessageReceived(data);
+    }
+    
     socket.on("receive_private_message", (data) => {
-      setMessageReceived(data.message);
+      handleprivatemessage(data)
     });
     getChat();
-  }, [messageReceived]);
+    // cleanup function
 
-  // useEffect(() => {
-  //   socket.on(
-  //     "receive_private_message",
-  //     (data) => {
-  //       setPrivateMessageReceived(data);
-  //     },
-  //     [socket]
-  //   );
-  //   getChat();
-  // },[socket]);
+    return () => {
+      socket.off("receive_private_message");
+    };
+  }, [privateMessage, privateMessageReceived, socket ]);
 
   // listen for message to join private chat room
   useEffect(() => {
@@ -103,11 +111,6 @@ function App() {
       setRoom(roomName);
     });
   }, [room]);
-
-  // useEffect(( )=> {
-  //  getChat()
-
-  // }, [selectedUser, room])
 
   // -------- FUNCTIONS  -------
 
@@ -134,25 +137,25 @@ function App() {
 
   // send a message through the socket, once the user clicks the send button
   const sendPrivateMessage = () => {
-    // console.log("connected user id: " + connectedUser.id);
-    // console.log("selectedUser: " + selectedUser);
-    // console.log("message " + message);
-    // console.log("room " + room);
+    console.log("connected user id: " + connectedUser.id);
+    console.log("selectedUser: " + selectedUser);
+    console.log("message " + privateMessage);
+    console.log("room " + room);
     axios
       .post("http://localhost:5000/chat/post", {
-        message,
+        message: privateMessage,
         sender: connectedUser.id,
         receiver: selectedUser,
         room,
       })
       .then(() => {
         socket.emit("send_private_message", {
-          message,
+          message: privateMessage,
           sender: connectedUser.id,
           room,
         });
       });
-    setMessage("");
+    setPrivateMessage("");
   };
 
   // Function to get the chat from the db
@@ -193,7 +196,7 @@ function App() {
               picture={connectedUser.picture}
               selectedUser={selectedUser}
               onChange={(event) => {
-                setMessage(event.target.value);
+                setPrivateMessage(event.target.value);
               }}
               onClick={() => sendPrivateMessage()}
               children={
