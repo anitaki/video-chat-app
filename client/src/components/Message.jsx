@@ -21,10 +21,15 @@ function Message({ chat, connectedUser, onClick, picture }) {
     window.location.reload(true);
   };
 
+  // Filter out the messages that belong to the private chat
+  const filteredMessages = chat.filter(
+    (chatmessage) => !chatmessage?.receiver?._id
+  );
+
   return (
     <Typography>
       <Container sx={{ display: "flex", flexDirection: "column" }}>
-        {chat.map((chatmessage) => {
+        {filteredMessages.map((chatmessage) => {
           if (chatmessage?.sender?._id === connectedUser.id) {
             return (
               // Display the list of messages of current user

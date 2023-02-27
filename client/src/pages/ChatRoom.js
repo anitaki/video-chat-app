@@ -139,10 +139,10 @@ function App() {
 
   // send a message through the socket, once the user clicks the send button
   const sendPrivateMessage = () => {
-    console.log("connected user id: " + connectedUser.id);
-    console.log("selectedUser: " + selectedUser);
-    console.log("message " + message);
-    console.log("room " + room);
+    // console.log("connected user id: " + connectedUser.id);
+    // console.log("selectedUser: " + selectedUser);
+    // console.log("message " + message);
+    // console.log("room " + room);
     axios
       .post("http://localhost:5000/chat/post", {
         message,
