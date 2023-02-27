@@ -23,8 +23,8 @@ function Message({ chat, connectedUser, onClick, picture }) {
 
   // Filter out the messages that belong to the private chat
   const filteredMessages = chat
-  .filter(chatmessage => !chatmessage?.receiver?._id)
-  .slice(-50);
+    .filter((chatmessage) => !chatmessage?.receiver?._id)
+    .slice(-50);
 
   return (
     <Typography>
@@ -33,7 +33,10 @@ function Message({ chat, connectedUser, onClick, picture }) {
           if (chatmessage?.sender?._id === connectedUser.id) {
             return (
               // Display the list of messages of current user
-              <Box sx={{ display: "flex", alignItems: "center" }}>
+              <Box
+                key={chatmessage._id}
+                sx={{ display: "flex", alignItems: "center" }}
+              >
                 {/* Display Avatar */}
                 <Avatar
                   alt="Profile picture with menu"
@@ -42,7 +45,6 @@ function Message({ chat, connectedUser, onClick, picture }) {
                 />
                 {/* Display Single Message */}
                 <Paper
-                  key={chatmessage._id}
                   sx={{
                     display: "flex",
                     flexDirection: "row",
@@ -116,6 +118,7 @@ function Message({ chat, connectedUser, onClick, picture }) {
             return (
               // Display the list of messages from other users
               <Box
+                key={chatmessage._id}
                 sx={{
                   display: "flex",
                   alignItems: "center",
@@ -124,7 +127,6 @@ function Message({ chat, connectedUser, onClick, picture }) {
               >
                 {/* Display Single Message */}
                 <Paper
-                  key={chatmessage._id}
                   elevation={2}
                   sx={{
                     display: "flex",

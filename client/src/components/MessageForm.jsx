@@ -45,10 +45,9 @@ function MessageForm({ children, onChange, onClick, picture }) {
           onChange={onChange}
         />
         {/* Submit button for new message */}
-        <IconButton aria-label="send message">
+        <IconButton aria-label="send message" onClick={onClick}>
           <SendIcon
-            color="secondary"
-            onClick={onClick}
+            color="secondary"     
             sx={{ ml: 1, width: "2rem", height: "3.5rem" }}
           />
         </IconButton>
