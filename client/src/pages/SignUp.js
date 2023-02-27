@@ -15,6 +15,7 @@ import { Visibility, VisibilityOff, PhotoCamera } from "@mui/icons-material";
 import SignUpButton from "../components/RegisterButton";
 import profileImg from "../assets/sample.webp";
 
+
 function SignUp() {
   // set the props for the NavBar
   let pages = [
@@ -48,18 +49,45 @@ function SignUp() {
     }
   }
 
+  // Save the image to cloudinary and get the url
+  async function uploadImage() {
+    const data = new FormData();
+    data.append("file", image);
+    data.append("upload_preset", "fzwsl8qd");
+    try {
+      setUpLoadingImage(true);
+      let res = await fetch(
+        "https://api.cloudinary.com/v1_1/caggel/image/upload",
+        {
+          method: "post",
+          body: data,
+        }
+      );
+      const urlData = await res.json();
+      setUpLoadingImage(false);
+      return urlData.url;
+    } catch (error) {
+      setUpLoadingImage(false);
+      console.log(error);
+    }
+  }
+
   // Functionality for user sign up
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  function signup() {
+  async function signup() {
+    if (!image) return alert("Please upload your profile picture");
+    const picture = await uploadImage(image);
+
     axios
       .post("http://localhost:5000/auth/register", {
         username,
         email,
         password,
+        picture,
       })
       .then(({ data }) => {
         if (data.message === true) {
@@ -87,7 +115,7 @@ function SignUp() {
             justifyContent: "center",
           }}
         >
-          {/* Heading and upload profile picture section */}
+          {/* Page heading and upload profile picture section */}
           <Typography variant="h5" component="h1" mt={2}>
             Create Account
           </Typography>
@@ -134,7 +162,7 @@ function SignUp() {
             sx={{ m: 1, width: "38ch" }}
             required
             variant="filled"
-            id="filled-required"
+            id="username"
             label="Username"
             defaultValue=""
             onChange={(e) => {
@@ -147,7 +175,7 @@ function SignUp() {
             sx={{ m: 1, width: "38ch" }}
             required
             variant="filled"
-            id="filled-required"
+            id="email"
             label="Email"
             defaultValue=""
             onChange={(e) => {
@@ -161,7 +189,7 @@ function SignUp() {
               Password
             </InputLabel>
             <FilledInput
-              id="filled-adornment-password"
+              id="password"
               type={showPassword ? "text" : "password"}
               onChange={(e) => {
                 setPassword(e.target.value);

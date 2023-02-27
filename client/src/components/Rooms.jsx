@@ -17,7 +17,7 @@ function Rooms() {
     console.log(selectedRoom);
   };
 
-  let rooms = ["first room", "second room", "third room"];
+  let rooms = ["General", "second room", "third room"];
 
   return (
     <Box sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
