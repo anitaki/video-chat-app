@@ -19,7 +19,7 @@ function SignUp() {
   // set the props for the NavBar
   let pages = [
     // { text: "Chat", href: "/chat" },
-    { text: "Login", href: "/login" },
+    // { text: "Login", href: "/login" },
   ];
   let settings = [
     { text: "Profile", href: "/chat" },
