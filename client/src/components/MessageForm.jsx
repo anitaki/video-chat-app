@@ -41,7 +41,7 @@ function MessageForm({ children, onChange, onClick, picture }) {
           variant="outlined"
           multiline
           maxRows={4}
-          color="warning"
+          color="success"
           sx={{ ml: 2, my: 1, width: "60%" }}
           onChange={onChange}
         />
@@ -58,7 +58,7 @@ function MessageForm({ children, onChange, onClick, picture }) {
          Send
         </Button> */}
         <IconButton aria-label="send message">
-          <SendIcon color="warning" onClick={onClick} />
+          <SendIcon color="secondary" onClick={onClick} sx={{ ml: 1, width: "2rem", height: "3.5rem" }} />
         </IconButton>
       </Box>
     </div>

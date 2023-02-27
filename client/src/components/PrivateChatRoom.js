@@ -1,6 +1,7 @@
-import { TextField, Box, Typography, IconButton } from "@mui/material";
+import { TextField, Box, Typography, IconButton, Icon } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import DivRef from "./DivRef";
+
 
 // Create the input field and Submit button where user will type and send his/her new message
 
@@ -42,14 +43,14 @@ function MessageForm({ children, onChange, onClick, picture, selectedUser }) {
           variant="outlined"
           multiline
           maxRows={4}
-          color="warning"
+          color="secondary"
           sx={{ ml: 2, my: 1, width: "60%" }}
           onChange={onChange}
         />
 
         {/* Submit button for new private message */}
         <IconButton aria-label="send message">
-          <SendIcon color="warning" onClick={onClick} />
+          <SendIcon color="warning" onClick={onClick} sx={{ ml: 1, width: "2rem", height: "3.5rem" }}/>
         </IconButton>
       </Box>
     </div>
