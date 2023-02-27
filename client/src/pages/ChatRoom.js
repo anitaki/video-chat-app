@@ -66,13 +66,12 @@ function App() {
             username: data.username,
             picture: data.picture,
           });
-        })
-        // get the messages for the authenticated user to display the chat
-        // .then(getChat());
+        })    
       // if the user is not authenticated redirect to home page
     } else {
       navigate("/login");
     }
+    // get the messages for the authenticated user to display the chat
     getChat();
   }, []);
 
@@ -115,11 +114,18 @@ function App() {
     });
   }, []);
 
+  // useEffect(( )=> {
+  //  getChat()
+
+  // }, [selectedUser, room])
+
   // -------- FUNCTIONS  -------
 
-  const handleLeaveRoom = () => {
-    socket.emit("leave_room", room);
-    setRoom(null);
+  const handleLeaveRoom = (event) => {
+    // socket.emit("leave_room", room);
+    // setRoom(null);
+    // setSelectedUser(null)
+    alert("leave the room")
   };
 
   // send a message through the socket, once the user clicks the send button
@@ -172,6 +178,11 @@ function App() {
     setSelectedUser(userId);
     socket.emit("start_private_room", userId, connectedUser);
   }
+  
+  // // When a user clicks general chat the messages of the general chat will be displayed
+  // const handleListItemClick = (event) => {
+  //   setSelectedUser(null)
+  // };
 
   // -------- RETURN STATEMENT  -------
 
@@ -184,7 +195,7 @@ function App() {
       />
       <Grid container spacing={2}>
         <Grid item xs={12} sm={4}>
-          <Sidebar users={users} handleUserClick={handleUserClick} />
+          <Sidebar users={users} handleUserClick={handleUserClick} handleLeaveRoom={handleLeaveRoom} />
         </Grid>
         <Grid item xs={12} sm={8}>
           {selectedUser && (
