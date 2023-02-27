@@ -86,7 +86,7 @@ function App() {
     return () => {
       socket.off("receive_message");
     };
-  }, [messageReceived, socket]);
+  }, [message, messageReceived, socket]);
 
   useEffect(() => {
 
