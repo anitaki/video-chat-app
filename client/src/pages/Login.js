@@ -18,7 +18,7 @@ import SignUpButton from "../components/RegisterButton";
 function LogIn() {
   // set the props for the NavBar
   let pages = [
-    { text: "Register", href: "/register" },
+    // { text: "Register", href: "/register" },
   ];
   let settings = [
     { text: "Profile", href: "#" },
