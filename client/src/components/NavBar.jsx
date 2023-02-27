@@ -14,8 +14,8 @@ import AdbIcon from "@mui/icons-material/Adb";
 import { Link } from "react-router-dom";
 import logo from "../assets/vine2.png";
 import vine from "../assets/vine.png";
-import { green } from "@mui/material/colors";
-const greenColor = green[700];
+
+
 
 function NavBar({ pages, settings, picture }) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);

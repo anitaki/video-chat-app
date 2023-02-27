@@ -14,6 +14,8 @@ import Rooms from "./Rooms";
 import "../pages/test.css";
 import { socket } from "../Socket";
 
+
+
 // Sidebar will display available rooms and online users
 
 function Sidebar({ room, users, handleUserClick }) {
@@ -22,6 +24,7 @@ function Sidebar({ room, users, handleUserClick }) {
   // const handleListItemClick = (event, index) => {
   //   setSelectedIndex(index);
   // };
+  
 
   return (
     <Container pl={5}>
