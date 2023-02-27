@@ -34,7 +34,8 @@ function PrivateMessage({
         chatmessage?.receiver?._id === selectedUser) ||
       (chatmessage?.sender?._id === selectedUser &&
         chatmessage?.receiver?._id === connectedUser.id)
-  );
+  )
+  .slice(-50);
 
   return (
     <Typography>
