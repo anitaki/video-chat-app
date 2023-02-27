@@ -17,12 +17,10 @@ function App() {
 
   // -- NavBar Variables --
   let pages = [
-    { text: "Chat", href: "/chat" },
-    { text: "Logout", href: "/logout" },
+    // { text: "Logout", href: "/logout" },
   ];
   let settings = [
     { text: "Profile", href: "/chat" },
-    { text: "Chat", href: "/chat" },
     { text: "Logout", href: "/logout" },
   ];
 
