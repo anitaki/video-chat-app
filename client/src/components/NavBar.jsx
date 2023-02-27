@@ -40,11 +40,13 @@ function NavBar({ pages, settings, picture }) {
     <AppBar position="static" color="success" enableColorOnDark>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
+          {/* Logo */}
           <img
             src={logo}
             alt="vine logo"
             style={{ width: "4.5rem", marginRight: ".5rem" }}
           />
+          {/* Name of application on click leads to home page on bigger viewports */}
           <Typography
             variant="h6"
             noWrap
@@ -62,7 +64,7 @@ function NavBar({ pages, settings, picture }) {
           >
             ChatVine
           </Typography>
-
+            {/* Hamburger menu with List of Pages for smaller viewports */}
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -101,12 +103,12 @@ function NavBar({ pages, settings, picture }) {
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+          {/* Name of Chat application on smaller viewports, clicked leads to home page */}
           <Typography
             variant="h5"
             noWrap
             component="a"
-            href=""
+            href="/"
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
@@ -118,8 +120,9 @@ function NavBar({ pages, settings, picture }) {
               textDecoration: "none",
             }}
           >
-            LOGO
+            ChatVine
           </Typography>
+          {/* List of Pages on larger viewports */}
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <MenuItem onClick={handleCloseNavMenu}>
@@ -132,7 +135,7 @@ function NavBar({ pages, settings, picture }) {
               </MenuItem>
             ))}
           </Box>
-
+          {/* Avatar with menu */}
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
