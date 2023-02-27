@@ -15,14 +15,17 @@ import { Visibility, VisibilityOff, PhotoCamera } from "@mui/icons-material";
 import SignUpButton from "../components/RegisterButton";
 import profileImg from "../assets/sample.webp";
 
-
 function SignUp() {
   // set the props for the NavBar
   let pages = [
     { text: "Chat", href: "/chat" },
     { text: "Login", href: "/login" },
   ];
-  let settings = ["Profile", "Account", "Dashboard", "Logout"];
+  let settings = [
+    { text: "Profile", href: "/chat" },
+    { text: "Chat", href: "/chat" },
+    { text: "Logout", href: "/logout" },
+  ];
 
   //  Handle show/hide password in the password form field
   const [showPassword, setShowPassword] = useState(false);
@@ -241,7 +244,7 @@ function SignUp() {
             backgroundImage:
               'url("https://images.unsplash.com/photo-1504270997636-07ddfbd48945?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=871&q=80")',
             backgroundSize: "cover",
-            backgroundPosition: "center"
+            backgroundPosition: "center",
           }}
         ></Grid>
       </Grid>

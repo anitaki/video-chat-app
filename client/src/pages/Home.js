@@ -5,7 +5,6 @@ import SendIcon from "@mui/icons-material/Send";
 import { Grid, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-
 function Landing() {
   const navigate = useNavigate();
   // Set the props values for the NavBar
@@ -13,7 +12,11 @@ function Landing() {
     { text: "Chat", href: "/chat" },
     { text: "Login", href: "/login" },
   ];
-  let settings = ["Profile", "Account", "Dashboard", "Logout"];
+  let settings = [
+    { text: "Profile", href: "/chat" },
+    { text: "Chat", href: "/chat" },
+    { text: "Logout", href: "/logout" },
+  ];
 
   return (
     <div>
@@ -88,9 +91,8 @@ function Landing() {
                 'url("https://images.unsplash.com/photo-1633354931133-27ac1ee5d853?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NTJ8fGNoYXR8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60")',
               backgroundRepeat: "no-repeat",
               backgroundSize: "cover",
-              backgroundPosition: "center"
-            }
-          }
+              backgroundPosition: "center",
+            }}
           ></Grid>
         </Grid>
       </Box>
