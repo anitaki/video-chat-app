@@ -27,16 +27,13 @@ function PrivateMessage({
     // window.location.reload(true);
   };
 
-  const filteredMessages = 
-    chat.filter(
-      (chatmessage) =>
-        (chatmessage?.sender?._id === connectedUser.id &&
-          chatmessage?.receiver?._id === selectedUser) ||
-        (chatmessage?.sender?._id === selectedUser &&
-          chatmessage?.receiver?._id === connectedUser.id  )
-    );
- 
-  
+  const filteredMessages = chat.filter(
+    (chatmessage) =>
+      (chatmessage?.sender?._id === connectedUser.id &&
+        chatmessage?.receiver?._id === selectedUser) ||
+      (chatmessage?.sender?._id === selectedUser &&
+        chatmessage?.receiver?._id === connectedUser.id)
+  );
 
   return (
     <Typography>
@@ -113,7 +110,7 @@ function PrivateMessage({
                     <IconButton
                       onClick={() => {
                         // deleteMessage(chatmessage._id);
-                        console.log(filteredMessages)
+                        console.log(filteredMessages);
                       }}
                       aria-label="Delete message"
                     >
@@ -217,7 +214,7 @@ function PrivateMessage({
                 />
               </Box>
             );
-          } 
+          }
         })}
       </Container>
       {/* {messageReceived} */}

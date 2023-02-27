@@ -56,8 +56,8 @@ io.on("connection", (socket) => {
   });
 
   // listens for a private message event coming from the user in a private room
-  socket.on("send_private_message", (message, sender, room) => {
-    socket.to(room).emit("receive_private_message", message)
+  socket.on("send_private_message", (data) => {
+    socket.to(data.room).emit("receive_private_message", data)
   });
 
   // listen for request for private chat
