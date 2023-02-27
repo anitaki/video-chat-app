@@ -64,6 +64,19 @@ function LogIn() {
       <NavBar pages={pages} settings={settings} />
       {/* SignUp Page Container */}
       <Grid container spacing={2}>
+          {/* Background Image Section */}
+          <Grid
+          item
+          xs={12}
+          sm={6}
+          mt={3}
+          style={{
+            height: "85vh",
+            backgroundImage:
+              'url("https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTZ8fGNoYXR0aW5nfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=1400&q=60")',
+            backgroundSize: "cover",
+          }}
+        ></Grid>
         {/* SignUp Form */}
         <Grid
           item
@@ -134,19 +147,7 @@ function LogIn() {
           </Typography>
         </Grid>
 
-        {/* Background Image Section */}
-        <Grid
-          item
-          xs={12}
-          sm={6}
-          mt={3}
-          style={{
-            height: "85vh",
-            backgroundImage:
-              'url("https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTZ8fGNoYXR0aW5nfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=1400&q=60")',
-            backgroundSize: "cover",
-          }}
-        ></Grid>
+      
       </Grid>
     </div>
   );
