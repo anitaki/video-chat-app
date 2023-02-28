@@ -14,17 +14,28 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import "../pages/test.css";
 import profileImg from "../assets/sample.webp";
 
-function Message({ chat, connectedUser, onClick, picture }) {
+function PrivateMessage({
+  chat,
+  connectedUser,
+  selectedUser,
+  onClick,
+  picture,
+}) {
   // Function to delete one of your chat messages from the db
   const deleteMessage = (id) => {
     axios.delete("http://localhost:5000/chat/" + id);
-    window.location.reload(true);
+    // window.location.reload(true);
   };
 
-  // Filter out the messages that belong to the private chat
-  const filteredMessages = chat
-    .filter((chatmessage) => !chatmessage?.receiver?._id)
-    .slice(-50);
+  // Filter the messages that are exchanged between the users of the private chat
+  const filteredMessages = chat.filter(
+    (chatmessage) =>
+      (chatmessage?.sender?._id === connectedUser.id &&
+        chatmessage?.receiver?._id === selectedUser) ||
+      (chatmessage?.sender?._id === selectedUser &&
+        chatmessage?.receiver?._id === connectedUser.id)
+  )
+  .slice(-50);
 
   return (
     <Typography>
@@ -32,11 +43,8 @@ function Message({ chat, connectedUser, onClick, picture }) {
         {filteredMessages.map((chatmessage) => {
           if (chatmessage?.sender?._id === connectedUser.id) {
             return (
-              // Display the list of messages of current user
-              <Box
-                key={chatmessage._id}
-                sx={{ display: "flex", alignItems: "center" }}
-              >
+              // *** Display the list of messages of current user ***
+              <Box sx={{ display: "flex", alignItems: "center" }}>
                 {/* Display Avatar */}
                 <Avatar
                   alt="Profile picture with menu"
@@ -45,6 +53,7 @@ function Message({ chat, connectedUser, onClick, picture }) {
                 />
                 {/* Display Single Message */}
                 <Paper
+                  key={chatmessage._id}
                   sx={{
                     display: "flex",
                     flexDirection: "row",
@@ -102,7 +111,8 @@ function Message({ chat, connectedUser, onClick, picture }) {
 
                     <IconButton
                       onClick={() => {
-                        deleteMessage(chatmessage._id);
+                        // deleteMessage(chatmessage._id);
+                        console.log(filteredMessages);
                       }}
                       aria-label="Delete message"
                     >
@@ -116,9 +126,8 @@ function Message({ chat, connectedUser, onClick, picture }) {
             );
           } else {
             return (
-              // Display the list of messages from other users
+              // *** Display the list of messages from other users ***
               <Box
-                key={chatmessage._id}
                 sx={{
                   display: "flex",
                   alignItems: "center",
@@ -127,6 +136,7 @@ function Message({ chat, connectedUser, onClick, picture }) {
               >
                 {/* Display Single Message */}
                 <Paper
+                  key={chatmessage._id}
                   elevation={2}
                   sx={{
                     display: "flex",
@@ -138,7 +148,7 @@ function Message({ chat, connectedUser, onClick, picture }) {
                     mr: 1,
                     my: 1,
                     p: 1,
-                    backgroundColor: "#8bc34a",
+                    backgroundColor: "#ffb300",
                     borderRadius: "30px",
                   }}
                 >
@@ -214,4 +224,4 @@ function Message({ chat, connectedUser, onClick, picture }) {
   );
 }
 
-export default Message;
+export default PrivateMessage;

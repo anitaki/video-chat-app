@@ -11,7 +11,7 @@ const port = process.env.PORT || 5000;
 const authRouter = require("./routers/authRouter");
 const chatRouter = require("./routers/chatRouter");
 const User = require("./modules/userModule");
-
+const ObjectId = require("mongodb").ObjectId;
 
 // create an Http server, needed for socket.io to connect
 const server = http.createServer(app);
@@ -23,7 +23,7 @@ app.use("/chat", chatRouter);
 
 app.get("/", (req, res) => {
   res.send("Server is running...");
-}); 
+});
 
 let users = [];
 
@@ -38,34 +38,74 @@ const io = new Server(server, {
 // listen when a user connects to our socket server by listening to connection event
 io.on("connection", (socket) => {
   console.log(`⚡: ${socket.id} user just connected!`);
+
+  // listens when a new user joins the server
+  socket.on("newUser", async (data) => {
+    // listens when a new user joins the server
+    let user = await User.find({ username: data.username });
+    user.socketID = data.socketID;
+    users.push(user);
+    console.log(users);
+    io.sockets.emit("newUserResponse", users);
+  });
+
   // listen for a sent message and then emit it to everyone in our room
   socket.on("send_message", (data) => {
     // listen for a sent message and then emit it to everyone in our socket server except ourselvess
     io.sockets.emit("receive_message", data); // OR socket.to(data.room).emit("receive_message", data);
   });
 
-// listens when a new user joins the server
- socket.on("newUser", async (data) => {
-// listens when a new user joins the server
-  let user= await User.find(
-    {username: data.username} 
-  )
-  user.socketID = data.socketID
-  users.push(user)
-  console.log(users)
-  io.sockets.emit("newUserResponse", users);
-});  
+  // listens for a private message event coming from the user in a private room
+  socket.on("send_private_message", (data) => {
+    socket.to(data.room).emit("receive_private_message", data)
+  });
 
-// listens when a user disconnects 
-socket.on("disconnect", () => {
-  console.log('🔥: A user disconnected'); 
-  // Updates the list of users
-  users = users.filter((user) => user.socketID !== socket.id);
-  console.log(users);
-  io.sockets.emit("newUserResponse", users);
-  socket.disconnect;
-}) 
-});
+  // listen for request for private chat
+  socket.on("start_private_room", (userId, connectedUser) => {
+    // Save the ids of the sender and the receiver
+    const senderId = connectedUser.id;
+    const receiverId = userId;
+
+    // Save the sockets for the sender
+    const senderSocketId = socket.id;
+    let receiverSocketId;
+
+    // Find and save the socket for the receiver
+    const result = users.find(
+      (user) => ObjectId(user[0]._id).toString() === userId
+    );
+
+    if (result) {
+      receiverSocketId = result.socketID;
+      console.log(`The socketID for ${userId} is ${receiverSocketId}`);
+    } else {
+      console.log(`No item found with _id ${userId}`);
+    }
+
+    // Create a unique room name for the private chat session
+    const roomName = `${senderId}-${receiverId}`;
+    console.log("Room is: ", roomName)
+
+    // Emit a "join room" event for both the sender and the receiver
+    socket.join(roomName);
+    io.to(receiverSocketId).emit("join_room", roomName);
+  });
+
+  // listens for an the event when a user leaves the room
+  socket.on("leave_room", (roomName) => {
+    socket.leave(roomName);
+  });
+
+  // listens when a user disconnects
+  socket.on("disconnect", () => {
+    console.log("🔥: A user disconnected");
+    // Updates the list of users
+    users = users.filter((user) => user.socketID !== socket.id);
+    console.log(users);
+    io.sockets.emit("newUserResponse", users);
+    socket.disconnect;
+  });
+});  
 
 // server listening
 server.listen(port, () => {

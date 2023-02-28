@@ -18,10 +18,12 @@ import SignUpButton from "../components/RegisterButton";
 function LogIn() {
   // set the props for the NavBar
   let pages = [
-    { text: "Chat", href: "/chat" },
-    { text: "Login", href: "/login" },
+    // { text: "Register", href: "/register" },
   ];
-  let settings = ["Profile", "Account", "Dashboard", "Logout"];
+  let settings = [
+    { text: "Profile", href: "#" },
+    { text: "Chat", href: "/chat" },
+  ];
 
   //  Handle show/hide password in the password form field
   const [showPassword, setShowPassword] = useState(false);
@@ -47,7 +49,7 @@ function LogIn() {
         if (data.token) {
           localStorage.setItem("token", data.token);
           localStorage.setItem("user", data);
-          socket.emit('newUser', { username, socketID: socket.id });
+          socket.emit("newUser", { username, socketID: socket.id });
           navigate("/chat");
         } else {
           alert(data.message);
@@ -60,6 +62,19 @@ function LogIn() {
       <NavBar pages={pages} settings={settings} />
       {/* SignUp Page Container */}
       <Grid container spacing={2}>
+          {/* Background Image Section */}
+          <Grid
+          item
+          xs={12}
+          sm={6}
+          mt={3}
+          style={{
+            height: "85vh",
+            backgroundImage:
+              'url("https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTZ8fGNoYXR0aW5nfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=1400&q=60")',
+            backgroundSize: "cover",
+          }}
+        ></Grid>
         {/* SignUp Form */}
         <Grid
           item
@@ -116,33 +131,23 @@ function LogIn() {
               login();
             }}
           />
-          <Typography variant="body1" mt={2}>
+          <Typography variant="body1" mt={5}>
             Don't have an account?
             <Button
               variant="text"
               color="secondary"
+              size="large"
               onClick={() => {
                 navigate("/register");
               }}
+              style={{fontWeight:"700"}}
             >
               Register
             </Button>
           </Typography>
         </Grid>
 
-        {/* Background Image Section */}
-        <Grid
-          item
-          xs={12}
-          sm={6}
-          mt={3}
-          style={{
-            height: "85vh",
-            backgroundImage:
-              'url("https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTZ8fGNoYXR0aW5nfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=1400&q=60")',
-            backgroundSize: "cover",
-          }}
-        ></Grid>
+      
       </Grid>
     </div>
   );

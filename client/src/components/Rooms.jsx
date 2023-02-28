@@ -6,18 +6,11 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
 
-function Rooms() {
-  const [selectedIndex, setSelectedIndex] = useState("");
-  const [selectedRoom, setSelectedRoom] = useState("");
+function Rooms({handleLeaveRoom}) {
+ 
+  
 
-  const handleListItemClick = (event, idx, room) => {
-    setSelectedIndex(idx);
-    setSelectedRoom(room);
-    console.log(selectedIndex);
-    console.log(selectedRoom);
-  };
-
-  let rooms = ["General", "second room", "third room"];
+  let rooms = ["General"];
 
   return (
     <Box sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
@@ -26,8 +19,7 @@ function Rooms() {
           return (
             <ListItemButton
               key={room}
-              selected={selectedIndex}
-              onClick={(event) => handleListItemClick(event, { idx }, { room })}
+              onClick={(event) => handleLeaveRoom(event)}
             >
               <ListItemText primary={room} />
             </ListItemButton>

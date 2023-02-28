@@ -22,6 +22,7 @@ const ColorButton = styled(Button)({
     backgroundColor: orange[700],
   },
   marginTop: "1rem",
+  width: "6rem"
 });
 
 

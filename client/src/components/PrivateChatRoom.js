@@ -1,12 +1,14 @@
-import { TextField, Box, IconButton } from "@mui/material";
+import { TextField, Box, Typography, IconButton, Icon } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import DivRef from "./DivRef";
 
+
 // Create the input field and Submit button where user will type and send his/her new message
 
-function MessageForm({ children, onChange, onClick, picture }) {
+function MessageForm({ children, onChange, onClick, picture, selectedUser }) {
   return (
     <div>
+      <Typography>This is your private chat with {selectedUser}</Typography>
       {/* Area to display chat messages */}
       <Box
         sx={{
@@ -22,6 +24,7 @@ function MessageForm({ children, onChange, onClick, picture }) {
         {children}
         <DivRef />
       </Box>
+
       {/* Input field for new message */}
       <Box sx={{ display: "flex", alignItems: "center", pl: 5 }}>
         <img
@@ -40,16 +43,14 @@ function MessageForm({ children, onChange, onClick, picture }) {
           variant="outlined"
           multiline
           maxRows={4}
-          color="success"
+          color="secondary"
           sx={{ ml: 2, my: 1, width: "60%" }}
           onChange={onChange}
         />
-        {/* Submit button for new message */}
+
+        {/* Submit button for new private message */}
         <IconButton aria-label="send message" onClick={onClick}>
-          <SendIcon
-            color="secondary"     
-            sx={{ ml: 1, width: "2rem", height: "3.5rem" }}
-          />
+          <SendIcon color="warning"  sx={{ ml: 1, width: "2rem", height: "3.5rem" }}/>
         </IconButton>
       </Box>
     </div>
