@@ -228,7 +228,7 @@ function App() {
               />
             </MessageBoard>
           )}
-          <button
+          {/* <button
             onClick={() => {
               console.log(connectedUser, messageReceived);
               console.log("selected User: " + selectedUser);
@@ -238,7 +238,7 @@ function App() {
             }}
           >
             user
-          </button>
+          </button> */}
         </Grid>
       </Grid>
     </div>

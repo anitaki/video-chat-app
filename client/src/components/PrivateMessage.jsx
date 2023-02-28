@@ -111,8 +111,7 @@ function PrivateMessage({
 
                     <IconButton
                       onClick={() => {
-                        // deleteMessage(chatmessage._id);
-                        console.log(filteredMessages);
+                        deleteMessage(chatmessage._id);
                       }}
                       aria-label="Delete message"
                     >
