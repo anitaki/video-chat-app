@@ -41,7 +41,7 @@ function MessageForm({ children, onChange, onClick, picture }) {
           multiline
           maxRows={4}
           color="success"
-          sx={{ ml: 2, my: 1, width: "60%" }}
+          sx={{ ml: 2, mb: 1, width: "60%" }}
           onChange={onChange}
         />
         {/* Submit button for new message */}
