@@ -61,10 +61,10 @@ io.on("connection", (socket) => {
   });
 
   // listen for request for private chat
-  socket.on("start_private_room", (userId, connectedUser) => {
+  socket.on("start_private_room", (selectedUser, connectedUser) => {
     // Save the ids of the sender and the receiver
     const senderId = connectedUser.id;
-    const receiverId = userId;
+    const receiverId = selectedUser._id;
 
     // Save the sockets for the sender
     const senderSocketId = socket.id;
@@ -72,14 +72,14 @@ io.on("connection", (socket) => {
 
     // Find and save the socket for the receiver
     const result = users.find(
-      (user) => ObjectId(user[0]._id).toString() === userId
+      (user) => ObjectId(user[0]._id).toString() === selectedUser._id
     );
 
     if (result) {
       receiverSocketId = result.socketID;
-      console.log(`The socketID for ${userId} is ${receiverSocketId}`);
+      console.log(`The socketID for ${selectedUser._id} is ${receiverSocketId}`);
     } else {
-      console.log(`No item found with _id ${userId}`);
+      console.log(`No item found with _id ${selectedUser._id}`);
     }
 
     // Create a unique room name for the private chat session

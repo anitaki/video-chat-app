@@ -166,9 +166,9 @@ function App() {
   };
 
   // At the sidebar, handle the click of a user to another online user to send private message
-  function handleUserClick(userId) {
-    setSelectedUser(userId);
-    socket.emit("start_private_room", userId, connectedUser);
+  function handleUserClick(selectedUser) {
+    setSelectedUser(selectedUser);
+    socket.emit("start_private_room", selectedUser, connectedUser);
   }
 
   // -------- RETURN STATEMENT  -------
@@ -199,6 +199,7 @@ function App() {
                 setPrivateMessage(event.target.value);
               }}
               onClick={() => sendPrivateMessage()}
+              privateMessage={privateMessage}
               children={
                 <PrivateMessage
                   chat={chat}
@@ -219,6 +220,7 @@ function App() {
                 setMessage(event.target.value);
               }}
               connectedUser={connectedUser}
+              message={message}
             >
               <Message
                 chat={chat}
@@ -228,7 +230,7 @@ function App() {
               />
             </MessageBoard>
           )}
-          <button
+          {/* <button
             onClick={() => {
               console.log(connectedUser, messageReceived);
               console.log("selected User: " + selectedUser);
@@ -238,7 +240,7 @@ function App() {
             }}
           >
             user
-          </button>
+          </button> */}
         </Grid>
       </Grid>
     </div>
