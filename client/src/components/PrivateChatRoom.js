@@ -64,8 +64,7 @@ function MessageForm({ children, onChange, onClick, picture, selectedUser, priva
         {/* Submit button for new private message */}
         <IconButton aria-label="send message" onClick={onClick}>
           <SendIcon
-            color="warning"
-            sx={{ ml: 1, width: "2rem", height: "3.5rem" }}
+            sx={{ ml: 1, width: "2rem", height: "3.5rem", color: "#FFB300" }}
           />
         </IconButton>
       </Box>
