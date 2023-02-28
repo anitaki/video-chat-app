@@ -166,9 +166,9 @@ function App() {
   };
 
   // At the sidebar, handle the click of a user to another online user to send private message
-  function handleUserClick(userId) {
-    setSelectedUser(userId);
-    socket.emit("start_private_room", userId, connectedUser);
+  function handleUserClick(selectedUser) {
+    setSelectedUser(selectedUser);
+    socket.emit("start_private_room", selectedUser, connectedUser);
   }
 
   // -------- RETURN STATEMENT  -------
