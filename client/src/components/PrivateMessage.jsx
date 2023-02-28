@@ -31,8 +31,8 @@ function PrivateMessage({
   const filteredMessages = chat.filter(
     (chatmessage) =>
       (chatmessage?.sender?._id === connectedUser.id &&
-        chatmessage?.receiver?._id === selectedUser) ||
-      (chatmessage?.sender?._id === selectedUser &&
+        chatmessage?.receiver?._id === selectedUser._id) ||
+      (chatmessage?.sender?._id === selectedUser._id &&
         chatmessage?.receiver?._id === connectedUser.id)
   )
   .slice(-50);
@@ -111,8 +111,7 @@ function PrivateMessage({
 
                     <IconButton
                       onClick={() => {
-                        // deleteMessage(chatmessage._id);
-                        console.log(filteredMessages);
+                        deleteMessage(chatmessage._id);
                       }}
                       aria-label="Delete message"
                     >
