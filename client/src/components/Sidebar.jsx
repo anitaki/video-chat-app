@@ -53,7 +53,7 @@ function Sidebar({ room, users, handleUserClick, handleLeaveRoom }) {
                 <ListItemAvatar>
                   <Avatar src={user[0].picture} />
                 </ListItemAvatar>
-                <ListItemButton onClick={() => handleUserClick(user[0]._id)}>
+                <ListItemButton onClick={() => handleUserClick(user[0])}>
                   <ListItemText
                     primary={user[0].username}
 
