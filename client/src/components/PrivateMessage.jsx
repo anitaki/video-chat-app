@@ -114,6 +114,7 @@ function PrivateMessage({
                         deleteMessage(chatmessage._id);
                       }}
                       aria-label="Delete message"
+                      tabindex="-1"
                     >
                       <DeleteOutlineOutlinedIcon
                         style={{ alignSelf: "center" }}

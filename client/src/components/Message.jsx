@@ -105,6 +105,7 @@ function Message({ chat, connectedUser, onClick, picture }) {
                         deleteMessage(chatmessage._id);
                       }}
                       aria-label="Delete message"
+                      tabindex="-1"
                     >
                       <DeleteOutlineOutlinedIcon
                         style={{ alignSelf: "center" }}
