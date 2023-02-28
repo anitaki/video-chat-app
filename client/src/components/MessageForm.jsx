@@ -4,7 +4,7 @@ import DivRef from "./DivRef";
 
 // Create the input field and Submit button where user will type and send his/her new message
 
-function MessageForm({ children, onChange, onClick, picture }) {
+function MessageForm({ children, onChange, onClick, picture, message }) {
   return (
     <div>
       {/* Area to display chat messages */}
@@ -43,6 +43,7 @@ function MessageForm({ children, onChange, onClick, picture }) {
           color="success"
           sx={{ ml: 2, mb: 1, width: "60%" }}
           onChange={onChange}
+          value={message}
         />
         {/* Submit button for new message */}
         <IconButton aria-label="send message" onClick={onClick}>

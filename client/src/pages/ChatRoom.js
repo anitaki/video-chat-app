@@ -199,6 +199,7 @@ function App() {
                 setPrivateMessage(event.target.value);
               }}
               onClick={() => sendPrivateMessage()}
+              privateMessage={privateMessage}
               children={
                 <PrivateMessage
                   chat={chat}
@@ -219,6 +220,7 @@ function App() {
                 setMessage(event.target.value);
               }}
               connectedUser={connectedUser}
+              message={message}
             >
               <Message
                 chat={chat}
