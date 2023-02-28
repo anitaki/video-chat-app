@@ -9,10 +9,13 @@ function Landing() {
   const navigate = useNavigate();
   // Set the props values for the NavBar
   let pages = [
-    { text: 'Chat', href: '/chat' },
-    { text: 'Login', href: '/login' }
+    { text: "Register", href: "/register" },
+    { text: "Login", href: "/login" },
   ];
-  let settings = ["Profile", "Account", "Dashboard", "Logout"];
+  let settings = [
+    { text: "Profile", href: "#" },
+    { text: "Chat", href: "/login" },
+  ];
 
   return (
     <div>
@@ -39,18 +42,34 @@ function Landing() {
               justifyContent: "center",
             }}
           >
-            <Typography variant="h2" component="h1" mb={2}>
-              Heading
+            <Typography
+              variant="h3"
+              component="h1"
+              px={2}
+              my={2}
+              align="center"
+              style={{ color: "#1b5e20" }}
+            >
+              Chatvine
             </Typography>
-            <Typography variant="subtitle1" mb={2}>
-            Stay connected with your loved ones anytime, anywhere.{" "}
+            <Typography
+              variant="h4"
+              component="h2"
+              px={2}
+              mb={2}
+              align="center"
+            >
+              Your New Go-To Chat App!
+            </Typography>
+            <Typography variant="subtitle1" mb={3} px={2}>
+              Stay connected with your loved ones anytime, anywhere{" "}
             </Typography>
             <Button
               onClick={() => {
                 navigate("/register");
               }}
               variant="contained"
-              color="success"
+              color="warning"
               size="large"
               endIcon={<SendIcon />}
               style={{ width: "12rem", height: "3rem" }}
@@ -68,7 +87,10 @@ function Landing() {
             style={{
               height: "85vh",
               backgroundImage:
-                'url("https://images.unsplash.com/photo-1616587896649-79b16d8b173d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80")',
+                'url("https://images.unsplash.com/photo-1633354931133-27ac1ee5d853?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NTJ8fGNoYXR8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60")',
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
             }}
           ></Grid>
         </Grid>

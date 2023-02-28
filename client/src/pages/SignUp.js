@@ -15,14 +15,16 @@ import { Visibility, VisibilityOff, PhotoCamera } from "@mui/icons-material";
 import SignUpButton from "../components/RegisterButton";
 import profileImg from "../assets/sample.webp";
 
-
 function SignUp() {
   // set the props for the NavBar
   let pages = [
-    { text: "Chat", href: "/chat" },
-    { text: "Login", href: "/login" },
+    // { text: "Chat", href: "/chat" },
+    // { text: "Login", href: "/login" },
   ];
-  let settings = ["Profile", "Account", "Dashboard", "Logout"];
+  let settings = [
+    { text: "Profile", href: "/chat" },
+    { text: "Chat", href: "/login" },
+  ];
 
   //  Handle show/hide password in the password form field
   const [showPassword, setShowPassword] = useState(false);
@@ -91,7 +93,7 @@ function SignUp() {
       })
       .then(({ data }) => {
         if (data.message === true) {
-          navigate("/");
+          navigate("/login");
         } else {
           alert(data.message);
         }
@@ -216,14 +218,16 @@ function SignUp() {
               signup();
             }}
           />
-          <Typography variant="body1" mt={2}>
+          <Typography variant="body1" mt={3}>
             Already have an account?
             <Button
               variant="text"
               color="secondary"
+              size="large"
               onClick={() => {
                 navigate("/login");
               }}
+              style={{fontWeight:"700"}}
             >
               Login
             </Button>
@@ -239,8 +243,9 @@ function SignUp() {
           style={{
             height: "85vh",
             backgroundImage:
-              'url("https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTZ8fGNoYXR0aW5nfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=1400&q=60")',
+              'url("https://images.unsplash.com/photo-1504270997636-07ddfbd48945?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=871&q=80")',
             backgroundSize: "cover",
+            backgroundPosition: "center",
           }}
         ></Grid>
       </Grid>
