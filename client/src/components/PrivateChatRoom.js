@@ -55,7 +55,7 @@ function MessageForm({ children, onChange, onClick, picture, selectedUser, priva
           variant="outlined"
           multiline
           maxRows={4}
-          color="secondary"
+          color="warning"
           sx={{ ml: 2, mb: 1, width: "60%" }}
           onChange={onChange}
           value={privateMessage}
