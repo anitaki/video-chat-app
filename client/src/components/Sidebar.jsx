@@ -21,10 +21,12 @@ import BadgeOfflineAvatars from "./AvatarOfflineBadge";
 function Sidebar({ users, allUsers, handleUserClick, handleLeaveRoom }) {
   let rooms = ["General Chat"];
   const offlineUsers = getOfflineUsers(users, allUsers);
- 
+
   function getOfflineUsers(users, allUsers) {
-    const onlineUserIds = users.map(user => user[0]._id);
-    const offlineUsers = allUsers.filter(user => !onlineUserIds.includes(user._id));
+    const onlineUserIds = users.map((user) => user[0]._id);
+    const offlineUsers = allUsers.filter(
+      (user) => !onlineUserIds.includes(user._id)
+    );
     return offlineUsers;
   }
 
@@ -59,13 +61,16 @@ function Sidebar({ users, allUsers, handleUserClick, handleLeaveRoom }) {
           overflowX: "none",
           maxHeight: "70vh",
         }}
-      >      
+      >
         <List mt={0}>
           {users.map((user) => {
             return (
               <ListItem key={user[0]._id}>
                 <ListItemAvatar>
-                  <BadgeOnlineAvatars src={user[0].picture} alt={user[0].username}/>
+                  <BadgeOnlineAvatars
+                    src={user[0].picture}
+                    alt={user[0].username}
+                  />
                 </ListItemAvatar>
                 <ListItemButton onClick={() => handleUserClick(user[0])}>
                   <ListItemText
@@ -75,13 +80,13 @@ function Sidebar({ users, allUsers, handleUserClick, handleLeaveRoom }) {
                 </ListItemButton>
               </ListItem>
             );
-          })}  
-        {/* Offline members section */}     
+          })}
+          {/* Offline members section */}
           {offlineUsers.map((user) => {
             return (
               <ListItem key={user._id}>
                 <ListItemAvatar>
-                  <BadgeOfflineAvatars src={user.picture} alt={user.username}/>
+                  <BadgeOfflineAvatars src={user.picture} alt={user.username} />
                 </ListItemAvatar>
                 <ListItemButton onClick={() => handleUserClick(user)}>
                   <ListItemText
