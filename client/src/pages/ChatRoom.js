@@ -34,6 +34,7 @@ function App() {
   const [messageReceived, setMessageReceived] = useState("");
   const [privateMessageReceived, setPrivateMessageReceived] = useState("");
   const [users, setUsers] = useState([]);
+  const [allUsers, setAllUsers] = useState([]);
   const [connectedUser, setConnectedUser] = useState({
     id: "",
     username: "",
@@ -69,6 +70,7 @@ function App() {
     }
     // get the messages for the authenticated user to display the chat
     getChat();
+    getAllUsers();
   }, []);
 
   // *** get the list of online users from socket.io
@@ -160,8 +162,17 @@ function App() {
 
   // Function to get the chat from the db
   const getChat = () => {
-    axios.get("http://localhost:5000/chat/").then(({ data }) => {
+    axios.get("http://localhost:5000/chat/")
+    .then(({ data }) => {
       setChat(data);
+    });
+  };
+
+  // Function to get all subscribed users from the db
+  const getAllUsers = () => {
+    axios.get("http://localhost:5000/auth/users")
+    .then(({data}) => {
+      setAllUsers(data);
     });
   };
 
@@ -187,6 +198,7 @@ function App() {
             users={users}
             handleUserClick={handleUserClick}
             handleLeaveRoom={handleLeaveRoom}
+            allUsers={allUsers}
           />
         </Grid>
         <Grid item xs={12} sm={8}>
@@ -230,17 +242,18 @@ function App() {
               />
             </MessageBoard>
           )}
-          {/* <button
+          <button
             onClick={() => {
               console.log(connectedUser, messageReceived);
               console.log("selected User: " + selectedUser);
               console.log("private message" + privateMessageReceived);
+              console.table("all users: " + JSON.stringify(allUsers))
 
               // console.log(users[0][0].username);
             }}
           >
             user
-          </button> */}
+          </button>
         </Grid>
       </Grid>
     </div>

@@ -68,7 +68,7 @@ io.on("connection", (socket) => {
 
     // Save the sockets for the sender
     const senderSocketId = socket.id;
-    let receiverSocketId;
+    let receiverSocketId; 
 
     // Find and save the socket for the receiver
     const result = users.find(

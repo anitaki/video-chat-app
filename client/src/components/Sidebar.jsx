@@ -16,14 +16,14 @@ import { socket } from "../Socket";
 
 // Sidebar will display available rooms and online users
 
-function Sidebar({ room, users, handleUserClick, handleLeaveRoom }) {
-  let rooms = ["General"];
+function Sidebar({ room, users, allUsers, handleUserClick, handleLeaveRoom }) {
+  let rooms = ["General Chat"];
 
   return (
     <Container pl={5}>
-      <Box mt={5}>
+      <Box mt={3}>
         {/* Available Rooms section */}
-        <Typography variant="h5" component="h2" mb={2}>
+        <Typography variant="h5" component="h2" mb={0}>
           Available Rooms
         </Typography>
         {/* <Rooms/> */}
@@ -43,10 +43,15 @@ function Sidebar({ room, users, handleUserClick, handleLeaveRoom }) {
           <Divider />
         </Box>
       </Box>
-
       {/* Online members section */}
-      <Box mt={5}>
-        <List>
+      <Box
+        sx={{
+          overflowY: "scroll",
+          overflowX: "none",
+        }}
+      >
+        
+        <List mt={0}>
           {users.map((user) => {
             return (
               <ListItem key={user[0]._id}>
@@ -56,7 +61,24 @@ function Sidebar({ room, users, handleUserClick, handleLeaveRoom }) {
                 <ListItemButton onClick={() => handleUserClick(user[0])}>
                   <ListItemText
                     primary={user[0].username}
-
+                    // secondary={secondary ? 'Secondary text' : null}
+                  />
+                </ListItemButton>
+              </ListItem>
+            );
+          })}
+        </List>
+        {/* Offline members section */}
+        <List>
+          {allUsers.map((user) => {
+            return (
+              <ListItem key={user._id}>
+                <ListItemAvatar>
+                  <Avatar src={user.picture} />
+                </ListItemAvatar>
+                <ListItemButton onClick={() => handleUserClick(user)}>
+                  <ListItemText
+                    primary={user.username}
                     // secondary={secondary ? 'Secondary text' : null}
                   />
                 </ListItemButton>
