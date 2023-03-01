@@ -29,7 +29,7 @@ function Sidebar({ room, users, allUsers, handleUserClick, handleLeaveRoom }) {
         {/* <Rooms/> */}
         <Box sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
           <List component="nav" aria-label="secondary mailbox folder">
-            {rooms.map((room, idx) => {
+            {rooms.map((room) => {
               return (
                 <ListItemButton
                   key={room}
@@ -48,9 +48,9 @@ function Sidebar({ room, users, allUsers, handleUserClick, handleLeaveRoom }) {
         sx={{
           overflowY: "scroll",
           overflowX: "none",
+          maxHeight: "70vh",
         }}
-      >
-        
+      >      
         <List mt={0}>
           {users.map((user) => {
             return (
@@ -66,10 +66,8 @@ function Sidebar({ room, users, allUsers, handleUserClick, handleLeaveRoom }) {
                 </ListItemButton>
               </ListItem>
             );
-          })}
-        </List>
-        {/* Offline members section */}
-        <List>
+          })}  
+        {/* Offline members section */}     
           {allUsers.map((user) => {
             return (
               <ListItem key={user._id}>
