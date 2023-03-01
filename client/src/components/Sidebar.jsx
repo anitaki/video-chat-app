@@ -13,10 +13,11 @@ import {
 } from "@mui/material";
 import "../pages/test.css";
 import { socket } from "../Socket";
+import BadgeAvatars from "./AvatarWithBadge";
 
 // Sidebar will display available rooms and online users
 
-function Sidebar({ room, users, allUsers, handleUserClick, handleLeaveRoom }) {
+function Sidebar({ users, allUsers, handleUserClick, handleLeaveRoom }) {
   let rooms = ["General Chat"];
   const offlineUsers = getOfflineUsers(users, allUsers);
  
@@ -63,7 +64,8 @@ function Sidebar({ room, users, allUsers, handleUserClick, handleLeaveRoom }) {
             return (
               <ListItem key={user[0]._id}>
                 <ListItemAvatar>
-                  <Avatar src={user[0].picture} />
+                  {/* <Avatar src={user[0].picture} /> */}
+                  <BadgeAvatars src={user[0].picture} alt={user[0].username}/>
                 </ListItemAvatar>
                 <ListItemButton onClick={() => handleUserClick(user[0])}>
                   <ListItemText
