@@ -18,6 +18,13 @@ import { socket } from "../Socket";
 
 function Sidebar({ room, users, allUsers, handleUserClick, handleLeaveRoom }) {
   let rooms = ["General Chat"];
+  const offlineUsers = getOfflineUsers(users, allUsers);
+ 
+  function getOfflineUsers(users, allUsers) {
+    const onlineUserIds = users.map(user => user[0]._id);
+    const offlineUsers = allUsers.filter(user => !onlineUserIds.includes(user._id));
+    return offlineUsers;
+  }
 
   return (
     <Container pl={5}>
@@ -68,7 +75,7 @@ function Sidebar({ room, users, allUsers, handleUserClick, handleLeaveRoom }) {
             );
           })}  
         {/* Offline members section */}     
-          {allUsers.map((user) => {
+          {offlineUsers.map((user) => {
             return (
               <ListItem key={user._id}>
                 <ListItemAvatar>
