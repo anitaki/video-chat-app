@@ -91,13 +91,12 @@ function App() {
   }, [message, messageReceived, socket]);
 
   useEffect(() => {
-
     const handleprivatemessage = (data) => {
       setPrivateMessageReceived(data);
-    }
-    
+    };
+
     socket.on("receive_private_message", (data) => {
-      handleprivatemessage(data)
+      handleprivatemessage(data);
     });
     getChat();
     // cleanup function
@@ -105,7 +104,7 @@ function App() {
     return () => {
       socket.off("receive_private_message");
     };
-  }, [privateMessage, privateMessageReceived, socket ]);
+  }, [privateMessage, privateMessageReceived, socket]);
 
   // listen for message to join private chat room
   useEffect(() => {
@@ -162,16 +161,14 @@ function App() {
 
   // Function to get the chat from the db
   const getChat = () => {
-    axios.get("http://localhost:5000/chat/")
-    .then(({ data }) => {
+    axios.get("http://localhost:5000/chat/").then(({ data }) => {
       setChat(data);
     });
   };
 
   // Function to get all subscribed users from the db
   const getAllUsers = () => {
-    axios.get("http://localhost:5000/auth/users")
-    .then(({data}) => {
+    axios.get("http://localhost:5000/auth/users").then(({ data }) => {
       setAllUsers(data);
     });
   };
@@ -247,7 +244,7 @@ function App() {
               console.log(connectedUser, messageReceived);
               console.log("selected User: " + selectedUser);
               console.log("private message" + privateMessageReceived);
-              console.table("all users: " + JSON.stringify(allUsers))
+              console.table("all users: " + JSON.stringify(allUsers));
 
               // console.log(users[0][0].username);
             }}
