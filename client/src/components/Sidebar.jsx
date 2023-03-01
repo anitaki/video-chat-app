@@ -13,7 +13,8 @@ import {
 } from "@mui/material";
 import "../pages/test.css";
 import { socket } from "../Socket";
-import BadgeAvatars from "./AvatarWithBadge";
+import BadgeOnlineAvatars from "./AvatarOnlineBadge";
+import BadgeOfflineAvatars from "./AvatarOfflineBadge";
 
 // Sidebar will display available rooms and online users
 
@@ -64,8 +65,7 @@ function Sidebar({ users, allUsers, handleUserClick, handleLeaveRoom }) {
             return (
               <ListItem key={user[0]._id}>
                 <ListItemAvatar>
-                  {/* <Avatar src={user[0].picture} /> */}
-                  <BadgeAvatars src={user[0].picture} alt={user[0].username}/>
+                  <BadgeOnlineAvatars src={user[0].picture} alt={user[0].username}/>
                 </ListItemAvatar>
                 <ListItemButton onClick={() => handleUserClick(user[0])}>
                   <ListItemText
@@ -81,7 +81,7 @@ function Sidebar({ users, allUsers, handleUserClick, handleLeaveRoom }) {
             return (
               <ListItem key={user._id}>
                 <ListItemAvatar>
-                  <Avatar src={user.picture} />
+                  <BadgeOfflineAvatars src={user.picture} alt={user.username}/>
                 </ListItemAvatar>
                 <ListItemButton onClick={() => handleUserClick(user)}>
                   <ListItemText
