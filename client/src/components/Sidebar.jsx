@@ -15,6 +15,7 @@ import "../pages/test.css";
 import { socket } from "../Socket";
 import BadgeOnlineAvatars from "./AvatarOnlineBadge";
 import BadgeOfflineAvatars from "./AvatarOfflineBadge";
+import Moment from 'moment';
 
 // Sidebar will display available rooms and online users
 
@@ -36,20 +37,20 @@ function Sidebar({ users, allUsers, handleUserClick, handleLeaveRoom, chat }) {
     return offlineUsers;
   }
 
-  function getOfflineUsersLastMessage(offlineUsers, chat, user_id) {
-  console.log(offlineUsers)
-  const offlineUsersIds = offlineUsers.map((user) => user._id)
-  console.log(offlineUsersIds)
-  const filteredMessages = chat
-  .filter((chatmessage) => !chatmessage?.receiver?._id)
-  .filter((message)=> offlineUsersIds.includes(user_id))
-  .sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt))
-  console.log(filteredMessages)
-  const lastOfflineMessage = filteredMessages[0]
-  console.log(lastOfflineMessage)
-  return lastOfflineMessage;
+  // function getOfflineUsersLastMessage(offlineUsers, chat, user_id) {
+  // console.log(offlineUsers)
+  // const offlineUsersIds = offlineUsers.map((user) => user._id)
+  // console.log(offlineUsersIds)
+  // const filteredMessages = chat
+  // .filter((chatmessage) => !chatmessage?.receiver?._id)
+  // .filter((message)=> offlineUsersIds.includes(user_id))
+  // .sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt))
+  // console.log(filteredMessages)
+  // const lastOfflineMessage = filteredMessages[0]
+  // console.log(lastOfflineMessage)
+  // return lastOfflineMessage;
 
-  }
+  // }
 
  
 
@@ -102,7 +103,8 @@ function Sidebar({ users, allUsers, handleUserClick, handleLeaveRoom, chat }) {
                 </ListItemAvatar>
                 <ListItemButton onClick={() => handleUserClick(user[0])}>
                   <ListItemText
-                    primary={user[0].username}
+                    // primary={user[0].username}
+                    primary = {Moment(lastOnlineUserMessage.createdAt).fromNow()}
                     secondary={lastOnlineUserMessage ? lastOnlineUserMessage.message : ""}
                   />
                 </ListItemButton>
