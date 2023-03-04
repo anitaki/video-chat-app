@@ -196,6 +196,7 @@ function App() {
             handleUserClick={handleUserClick}
             handleLeaveRoom={handleLeaveRoom}
             allUsers={allUsers}
+            chat={chat}
           />
         </Grid>
         <Grid item xs={12} sm={8}>
@@ -241,11 +242,11 @@ function App() {
           )}
           <button
             onClick={() => {
+              console.log(chat);
               console.log(connectedUser, messageReceived);
               console.log("selected User: " + selectedUser);
               console.log("private message" + privateMessageReceived);
               console.table("all users: " + JSON.stringify(allUsers));
-
               // console.log(users[0][0].username);
             }}
           >
