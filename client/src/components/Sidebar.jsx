@@ -18,9 +18,15 @@ import BadgeOfflineAvatars from "./AvatarOfflineBadge";
 
 // Sidebar will display available rooms and online users
 
-function Sidebar({ users, allUsers, handleUserClick, handleLeaveRoom }) {
+function Sidebar({ users, allUsers, handleUserClick, handleLeaveRoom, chat }) {
   let rooms = ["General Chat"];
   const offlineUsers = getOfflineUsers(users, allUsers);
+  
+  const filteredMessages = chat
+  .filter((chatmessage) => !chatmessage?.receiver?._id)
+ 
+
+
 
   function getOfflineUsers(users, allUsers) {
     const onlineUserIds = users.map((user) => user[0]._id);
@@ -29,6 +35,25 @@ function Sidebar({ users, allUsers, handleUserClick, handleLeaveRoom }) {
     );
     return offlineUsers;
   }
+
+  function getOfflineUsersLastMessage(offlineUsers, chat, user_id) {
+  console.log(offlineUsers)
+  const offlineUsersIds = offlineUsers.map((user) => user._id)
+  console.log(offlineUsersIds)
+  const filteredMessages = chat
+  .filter((chatmessage) => !chatmessage?.receiver?._id)
+  .filter((message)=> offlineUsersIds.includes(user_id))
+  .sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt))
+  console.log(filteredMessages)
+  const lastOfflineMessage = filteredMessages[0]
+  console.log(lastOfflineMessage)
+  return lastOfflineMessage;
+
+  }
+
+ 
+
+
 
   return (
     <Container pl={5}>
@@ -75,7 +100,7 @@ function Sidebar({ users, allUsers, handleUserClick, handleLeaveRoom }) {
                 <ListItemButton onClick={() => handleUserClick(user[0])}>
                   <ListItemText
                     primary={user[0].username}
-                    // secondary={secondary ? 'Secondary text' : null}
+                    secondary={"hi"}
                   />
                 </ListItemButton>
               </ListItem>
@@ -83,6 +108,13 @@ function Sidebar({ users, allUsers, handleUserClick, handleLeaveRoom }) {
           })}
           {/* Offline members section */}
           {offlineUsers.map((user) => {
+          const lastUserMessage = filteredMessages
+         .sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt) )
+         .find((message) => message.sender && message.sender._id === user._id)
+           console.log(lastUserMessage);
+    
+
+         
             return (
               <ListItem key={user._id}>
                 <ListItemAvatar>
@@ -91,14 +123,13 @@ function Sidebar({ users, allUsers, handleUserClick, handleLeaveRoom }) {
                 <ListItemButton onClick={() => handleUserClick(user)}>
                   <ListItemText
                     primary={user.username}
-                    // secondary={secondary ? 'Secondary text' : null}
+                    secondary={ lastUserMessage ? lastUserMessage.message : "" }
                   />
                 </ListItemButton>
               </ListItem>
             );
           })}
         </List>
-
         {/* <Typography variant="h5" component="h2" mb={2}>
           Members
         </Typography>
