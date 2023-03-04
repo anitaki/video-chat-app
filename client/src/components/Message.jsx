@@ -105,6 +105,7 @@ function Message({ chat, connectedUser, onClick, picture }) {
                         deleteMessage(chatmessage._id);
                       }}
                       aria-label="Delete message"
+                      tabIndex={-1}
                     >
                       <DeleteOutlineOutlinedIcon
                         style={{ alignSelf: "center" }}
@@ -185,17 +186,6 @@ function Message({ chat, connectedUser, onClick, picture }) {
                     style={{ borderTop: ".5px solid lightgrey" }}
                   >
                     <Typography>{chatmessage.message}</Typography>
-
-                    <IconButton
-                      onClick={() => {
-                        deleteMessage(chatmessage._id);
-                      }}
-                      aria-label="Delete message"
-                    >
-                      <DeleteOutlineOutlinedIcon
-                        style={{ alignSelf: "center" }}
-                      />
-                    </IconButton>
                   </Box>
                 </Paper>
                 {/* Display Avatar */}

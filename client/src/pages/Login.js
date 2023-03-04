@@ -22,7 +22,7 @@ function LogIn() {
   ];
   let settings = [
     { text: "Profile", href: "#" },
-    { text: "Chat", href: "/chat" },
+    { text: "Chat", href: "#" },
   ];
 
   //  Handle show/hide password in the password form field
