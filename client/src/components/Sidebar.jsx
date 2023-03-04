@@ -89,6 +89,9 @@ function Sidebar({ users, allUsers, handleUserClick, handleLeaveRoom, chat }) {
       >
         <List mt={0}>
           {users.map((user) => {
+            const lastOnlineUserMessage = filteredMessages
+            .sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt) )
+            .find((message) => message.sender._id && message.sender._id === user[0]._id)
             return (
               <ListItem key={user[0]._id}>
                 <ListItemAvatar>
@@ -100,7 +103,7 @@ function Sidebar({ users, allUsers, handleUserClick, handleLeaveRoom, chat }) {
                 <ListItemButton onClick={() => handleUserClick(user[0])}>
                   <ListItemText
                     primary={user[0].username}
-                    secondary={"hi"}
+                    secondary={lastOnlineUserMessage ? lastOnlineUserMessage.message : ""}
                   />
                 </ListItemButton>
               </ListItem>
@@ -108,13 +111,10 @@ function Sidebar({ users, allUsers, handleUserClick, handleLeaveRoom, chat }) {
           })}
           {/* Offline members section */}
           {offlineUsers.map((user) => {
-          const lastUserMessage = filteredMessages
+          const lastOfflineUserMessage = filteredMessages
          .sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt) )
          .find((message) => message.sender && message.sender._id === user._id)
-           console.log(lastUserMessage);
-    
-
-         
+           console.log(lastOfflineUserMessage);       
             return (
               <ListItem key={user._id}>
                 <ListItemAvatar>
@@ -123,7 +123,7 @@ function Sidebar({ users, allUsers, handleUserClick, handleLeaveRoom, chat }) {
                 <ListItemButton onClick={() => handleUserClick(user)}>
                   <ListItemText
                     primary={user.username}
-                    secondary={ lastUserMessage ? lastUserMessage.message : "" }
+                    secondary={ lastOfflineUserMessage ? lastOfflineUserMessage.message : "" }
                   />
                 </ListItemButton>
               </ListItem>
