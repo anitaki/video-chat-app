@@ -6,7 +6,6 @@ import {
   List,
   ListItem,
   ListItemAvatar,
-  Avatar,
   ListItemText,
   ListItemButton,
   Divider,
@@ -23,11 +22,10 @@ function Sidebar({ users, allUsers, handleUserClick, handleLeaveRoom, chat }) {
   let rooms = ["General Chat"];
   const offlineUsers = getOfflineUsers(users, allUsers);
   
+  // Get the messages that appear only in the general chat, as they don't have a receiver is
   const filteredMessages = chat
   .filter((chatmessage) => !chatmessage?.receiver?._id)
  
-
-
 
   function getOfflineUsers(users, allUsers) {
     const onlineUserIds = users.map((user) => user[0]._id);
@@ -36,25 +34,6 @@ function Sidebar({ users, allUsers, handleUserClick, handleLeaveRoom, chat }) {
     );
     return offlineUsers;
   }
-
-  // function getOfflineUsersLastMessage(offlineUsers, chat, user_id) {
-  // console.log(offlineUsers)
-  // const offlineUsersIds = offlineUsers.map((user) => user._id)
-  // console.log(offlineUsersIds)
-  // const filteredMessages = chat
-  // .filter((chatmessage) => !chatmessage?.receiver?._id)
-  // .filter((message)=> offlineUsersIds.includes(user_id))
-  // .sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt))
-  // console.log(filteredMessages)
-  // const lastOfflineMessage = filteredMessages[0]
-  // console.log(lastOfflineMessage)
-  // return lastOfflineMessage;
-
-  // }
-
- 
-
-
 
   return (
     <Container pl={5}>
@@ -90,9 +69,11 @@ function Sidebar({ users, allUsers, handleUserClick, handleLeaveRoom, chat }) {
       >
         <List mt={0}>
           {users.map((user) => {
+            // sort the users messages in the general chat and get the last one chronologically
             const lastOnlineUserMessage = filteredMessages
             .sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt) )
             .find((message) => message.sender._id && message.sender._id === user[0]._id)
+            // return the list of online users
             return (
               <ListItem key={user[0]._id}>
                 <ListItemAvatar>
@@ -103,8 +84,13 @@ function Sidebar({ users, allUsers, handleUserClick, handleLeaveRoom, chat }) {
                 </ListItemAvatar>
                 <ListItemButton onClick={() => handleUserClick(user[0])}>
                   <ListItemText
-                    // primary={user[0].username}
-                    primary = {Moment(lastOnlineUserMessage.createdAt).fromNow()}
+            
+                    primary = {
+                      <Box display="flex" justifyContent="space-between">
+                        <span>{user[0].username}</span>
+                        <span style={{color: "darkgrey", fontSize: ".9rem"}}>{lastOnlineUserMessage && (Moment(lastOnlineUserMessage.createdAt).fromNow())}</span>
+                      </Box>
+                    }
                     secondary={lastOnlineUserMessage ? lastOnlineUserMessage.message : ""}
                   />
                 </ListItemButton>
@@ -123,8 +109,18 @@ function Sidebar({ users, allUsers, handleUserClick, handleLeaveRoom, chat }) {
                   <BadgeOfflineAvatars src={user.picture} alt={user.username} />
                 </ListItemAvatar>
                 <ListItemButton onClick={() => handleUserClick(user)}>
+
+
+              
+
+
                   <ListItemText
-                    primary={user.username}
+                 primary = {
+                  <Box display="flex" justifyContent="space-between">
+                    <span>{user.username}</span>
+                    <span style={{color: "darkgrey", fontSize: ".9rem"}}>{lastOfflineUserMessage && (Moment(lastOfflineUserMessage.createdAt).fromNow())}</span>
+                  </Box>
+                }
                     secondary={ lastOfflineUserMessage ? lastOfflineUserMessage.message : "" }
                   />
                 </ListItemButton>
