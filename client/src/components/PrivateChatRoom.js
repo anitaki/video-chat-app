@@ -70,7 +70,7 @@ function MessageForm({
         {/* Submit button for new private message */}
         <IconButton aria-label="send message" onClick={onClick}>
           <SendIcon
-            sx={{ ml: 1, width: "2rem", height: "3.5rem", color: "#FFB300" }}
+            sx={{ ml: 1, width: "2rem", height: "3.5rem", color: "#ED6C02" }}
           />
         </IconButton>
       </Box>
