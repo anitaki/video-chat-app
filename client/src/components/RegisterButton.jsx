@@ -1,8 +1,8 @@
 import React from "react";
 import { Button } from "@mui/material";
-import { createTheme } from '@mui/material/styles';
-import { purple, orange } from '@mui/material/colors';
-import { styled } from '@mui/material/styles';
+import { createTheme } from "@mui/material/styles";
+import { purple, orange } from "@mui/material/colors";
+import { styled } from "@mui/material/styles";
 
 const theme = createTheme({
   palette: {
@@ -18,15 +18,14 @@ const theme = createTheme({
 const ColorButton = styled(Button)({
   color: theme.palette.getContrastText(orange[400]),
   backgroundColor: orange[500],
-  '&:hover': {
+  "&:hover": {
     backgroundColor: orange[700],
   },
   marginTop: "1rem",
-  width: "6rem"
+  width: "6rem",
 });
 
-
-function SignUpButton ({ onClick,value }) {
+function SignUpButton({ onClick, value }) {
   return (
     <div>
       <ColorButton onClick={onClick}>{value}</ColorButton>
@@ -34,4 +33,4 @@ function SignUpButton ({ onClick,value }) {
   );
 }
 
-export default SignUpButton;  
+export default SignUpButton;

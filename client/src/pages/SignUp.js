@@ -158,7 +158,6 @@ function SignUp() {
               <PhotoCamera />
             </IconButton>
           </Box>
-
           {/* Username field */}
           <TextField
             sx={{ m: 1, width: "38ch" }}
@@ -171,7 +170,6 @@ function SignUp() {
               setUsername(e.target.value);
             }}
           />
-
           {/* Email field */}
           <TextField
             sx={{ m: 1, width: "38ch" }}
@@ -184,7 +182,6 @@ function SignUp() {
               setEmail(e.target.value);
             }}
           />
-
           {/* Password field */}
           <FormControl sx={{ m: 1, width: "38ch" }} variant="filled" required>
             <InputLabel htmlFor="filled-adornment-password">
@@ -210,7 +207,6 @@ function SignUp() {
               }
             />
           </FormControl>
-
           {/* Submit Button  */}
           <SignUpButton
             value="Sign Up"
@@ -233,7 +229,6 @@ function SignUp() {
             </Button>
           </Typography>
         </Grid>
-
         {/* Background Image Section */}
         <Grid
           item

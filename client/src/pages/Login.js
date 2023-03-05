@@ -99,7 +99,6 @@ function LogIn() {
               setUsername(e.target.value);
             }}
           />
-
           {/* Password field */}
           <FormControl sx={{ m: 1, width: "38ch" }} variant="filled" required>
             <InputLabel htmlFor="password-login">Password</InputLabel>
@@ -123,7 +122,6 @@ function LogIn() {
               }
             />
           </FormControl>
-
           {/* Submit Button  */}
           <SignUpButton
             value="Log in"
@@ -145,9 +143,7 @@ function LogIn() {
               Register
             </Button>
           </Typography>
-        </Grid>
-
-      
+        </Grid>     
       </Grid>
     </div>
   );
