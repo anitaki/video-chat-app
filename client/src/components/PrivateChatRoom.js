@@ -4,7 +4,14 @@ import DivRef from "./DivRef";
 
 // Create the input field and Submit button where user will type and send his/her new message
 
-function MessageForm({ children, onChange, onClick, picture, selectedUser, privateMessage }) {
+function MessageForm({
+  children,
+  onChange,
+  onClick,
+  picture,
+  selectedUser,
+  privateMessage,
+}) {
   return (
     <div>
       <Typography
@@ -60,7 +67,6 @@ function MessageForm({ children, onChange, onClick, picture, selectedUser, priva
           onChange={onChange}
           value={privateMessage}
         />
-
         {/* Submit button for new private message */}
         <IconButton aria-label="send message" onClick={onClick}>
           <SendIcon
