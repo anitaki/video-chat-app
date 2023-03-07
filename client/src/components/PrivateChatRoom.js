@@ -1,4 +1,4 @@
-import { TextField, Box, Typography, IconButton, Icon } from "@mui/material";
+import { TextField, Box, Typography, IconButton } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import DivRef from "./DivRef";
 
