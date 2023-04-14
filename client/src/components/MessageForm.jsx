@@ -1,6 +1,7 @@
 import { TextField, Box, IconButton } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import DivRef from "./DivRef";
+import profileImg from "../assets/sample.webp";
 
 // Create the input field and Submit button where user will type and send his/her new message
 
@@ -25,7 +26,7 @@ function MessageForm({ children, onChange, onClick, picture, message }) {
       {/* Input field for new message */}
       <Box sx={{ display: "flex", alignItems: "center", pl: 5 }}>
         <img
-          src={picture}
+          src={picture || profileImg}
           alt="avatar"
           style={{
             borderRadius: "50%",

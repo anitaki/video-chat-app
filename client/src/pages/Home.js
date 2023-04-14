@@ -20,7 +20,6 @@ function Landing() {
   return (
     <div>
       <NavBar pages={pages} settings={settings} />
-
       {/* Home Page  */}
       <Box
         sx={{
@@ -77,7 +76,6 @@ function Landing() {
               Get Started
             </Button>
           </Grid>
-
           {/* Home page photo section */}
           <Grid
             item

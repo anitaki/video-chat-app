@@ -34,6 +34,7 @@ function App() {
   const [messageReceived, setMessageReceived] = useState("");
   const [privateMessageReceived, setPrivateMessageReceived] = useState("");
   const [users, setUsers] = useState([]);
+  const [allUsers, setAllUsers] = useState([]);
   const [connectedUser, setConnectedUser] = useState({
     id: "",
     username: "",
@@ -45,7 +46,7 @@ function App() {
     setMessageReceived(`You are connected with id ${socketID}`);
   });
 
-  // -------- HOOKS  -------
+  // -------- REACT HOOKS  -------
 
   // *** Show chat only to authenticated users
   useEffect(() => {
@@ -69,14 +70,17 @@ function App() {
     }
     // get the messages for the authenticated user to display the chat
     getChat();
+    getAllUsers();
   }, []);
 
+  
   // *** get the list of online users from socket.io
   useEffect(() => {
     socket.on("newUserResponse", (users) => setUsers(users));
   }, [messageReceived]);
 
-  // *** listen to general and private messages coming from the socket
+  
+  // *** listen to general messages coming from the socket
   useEffect(() => {
     socket.on("receive_message", (data) => {
       setMessageReceived(data.message);
@@ -88,29 +92,32 @@ function App() {
     };
   }, [message, messageReceived, socket]);
 
-  useEffect(() => {
 
+  // *** listen to general and private messages coming from the socket
+  useEffect(() => {
     const handleprivatemessage = (data) => {
       setPrivateMessageReceived(data);
-    }
-    
+    };
     socket.on("receive_private_message", (data) => {
-      handleprivatemessage(data)
+      handleprivatemessage(data);
     });
     getChat();
     // cleanup function
-
     return () => {
       socket.off("receive_private_message");
     };
-  }, [privateMessage, privateMessageReceived, socket ]);
+  }, [privateMessage, privateMessageReceived, socket]);
 
-  // listen for message to join private chat room
+  
+  // *** listen for message to join private chat room
   useEffect(() => {
     socket.on("join_room", (roomName) => {
       setRoom(roomName);
     });
   }, [room]);
+
+
+
 
   // -------- FUNCTIONS  -------
 
@@ -120,7 +127,8 @@ function App() {
     setSelectedUser(null);
   };
 
-  // send a message through the socket, once the user clicks the send button
+
+  // *** send a message through the socket, once the user clicks the send button
   const sendMessage = () => {
     axios
       .post("http://localhost:5000/chat/post", {
@@ -135,7 +143,8 @@ function App() {
     setMessage("");
   };
 
-  // send a message through the socket, once the user clicks the send button
+
+  // *** send a message through the socket, once the user clicks the send button
   const sendPrivateMessage = () => {
     console.log("connected user id: " + connectedUser.id);
     console.log("selectedUser: " + selectedUser);
@@ -158,35 +167,51 @@ function App() {
     setPrivateMessage("");
   };
 
-  // Function to get the chat from the db
+
+  // *** Function to get the chat from the db
   const getChat = () => {
     axios.get("http://localhost:5000/chat/").then(({ data }) => {
       setChat(data);
     });
   };
 
-  // At the sidebar, handle the click of a user to another online user to send private message
+
+  // *** Function to get all subscribed users from the db
+  const getAllUsers = () => {
+    axios.get("http://localhost:5000/auth/users").then(({ data }) => {
+      setAllUsers(data);
+    });
+  };
+
+
+  // *** At the sidebar, handle the click of a user to another online user to send private message
   function handleUserClick(selectedUser) {
     setSelectedUser(selectedUser);
     socket.emit("start_private_room", selectedUser, connectedUser);
   }
 
+
+
+
   // -------- RETURN STATEMENT  -------
 
   return (
     <div>
-      {/* NavBar component */}
+      {/* Display the navigation bar */}
       <NavBar
         pages={pages}
         settings={settings}
         picture={connectedUser.picture}
       />
+      {/* Display the side bar with the general room and list of users */}
       <Grid container spacing={2}>
         <Grid item xs={12} sm={4}>
           <Sidebar
             users={users}
             handleUserClick={handleUserClick}
             handleLeaveRoom={handleLeaveRoom}
+            allUsers={allUsers}
+            chat={chat}
           />
         </Grid>
         <Grid item xs={12} sm={8}>
@@ -230,12 +255,14 @@ function App() {
               />
             </MessageBoard>
           )}
+          {/* Test button to be deleted  */}
           {/* <button
             onClick={() => {
+              console.log(chat);
               console.log(connectedUser, messageReceived);
               console.log("selected User: " + selectedUser);
               console.log("private message" + privateMessageReceived);
-
+              console.table("all users: " + JSON.stringify(allUsers));
               // console.log(users[0][0].username);
             }}
           >
