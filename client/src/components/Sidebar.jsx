@@ -96,10 +96,10 @@ function Sidebar({ users, allUsers, handleUserClick, handleLeaveRoom, chat }) {
                     primary={
                       <Box display="flex" justifyContent="space-between">
                         <span>{user[0].username}</span>
-                        <span style={{ color: "darkgrey", fontSize: ".9rem" }}>
+                        {/* <span style={{ color: "darkgrey", fontSize: ".9rem" }}>
                           {lastOnlineUserMessage &&
                             Moment(lastOnlineUserMessage.createdAt).fromNow()}
-                        </span>
+                        </span> */}
                       </Box>
                     }
                     secondary={
