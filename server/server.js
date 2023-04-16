@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const path = require("path");
 const http = require("http");
 const { Server } = require("socket.io");
 const cors = require("cors");
@@ -17,6 +18,7 @@ const ObjectId = require("mongodb").ObjectId;
 const server = http.createServer(app);
 
 app.use(express.json());
+app.use(express.static(path.join(__dirname, "/build")));
 app.use(cors());
 app.use("/auth", authRouter);
 app.use("/chat", chatRouter);
@@ -106,6 +108,11 @@ io.on("connection", (socket) => {
     socket.disconnect;
   });
 });  
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname + "/build/index.html"))
+
+})
 
 // server listening
 server.listen(port, () => {

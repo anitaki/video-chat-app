@@ -11,7 +11,6 @@ import {
   Divider,
 } from "@mui/material";
 import "../pages/test.css";
-import { socket } from "../Socket";
 import BadgeOnlineAvatars from "./AvatarOnlineBadge";
 import BadgeOfflineAvatars from "./AvatarOfflineBadge";
 import Moment from "moment";
